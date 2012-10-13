@@ -85,9 +85,9 @@ def oauth_client
 end
 
 def octo_client(token)
-  Octokit::Client.new oauth_token: token
+  Octokit::Client.new oauth_token: token, auto_traversal: true
 end
 
 def repos
-  octo_client(cookies[:token]).repos
+  octo_client(cookies[:token]).repos(nil, sort: 'pushed')
 end
