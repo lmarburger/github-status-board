@@ -14,6 +14,10 @@ class GB.FeedView extends Backbone.View
         model.events.models
     ))
     
+    events = _.sortBy(events, (e) ->
+      new Date(e.get('created_at'))
+    )
+    
     # Please. "item" is a misnomer, these are events. "event" just felt wrong.
     _.each events, (item) =>
       view = new GB.EventItemView(model: item)
