@@ -29,13 +29,22 @@ GEM
     faraday_middleware (0.8.8)
       faraday (>= 0.7.4, < 0.9)
     hashie (1.2.0)
+    httpauth (0.2.0)
     i18n (0.6.1)
+    jwt (0.1.5)
+      multi_json (>= 1.0)
     kgio (2.7.4)
     libv8 (3.3.10.4)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
     multi_json (1.3.6)
     multipart-post (1.1.5)
+    oauth2 (0.8.0)
+      faraday (~> 0.8)
+      httpauth (~> 0.1)
+      jwt (~> 0.1.4)
+      multi_json (~> 1.0)
+      rack (~> 1.2)
     octokit (1.17.1)
       addressable (~> 2.2)
       faraday (~> 0.8)
@@ -92,6 +101,7 @@ DEPENDENCIES
   coffee-script
   debugger
   i18n
+  oauth2
   octokit
   ruby-debug
   sass

@@ -1,6 +1,3 @@
 github_application:
   client_id: abc1234
   secret:    sekret
-github_credentials:
-  login:    defleppard-team
-  password: sekret

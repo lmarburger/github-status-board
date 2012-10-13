@@ -15,6 +15,7 @@ end
 gem 'sass'
 gem 'bourbon'
 gem 'coffee-script'
+gem 'oauth2'
 gem 'octokit'
 gem 'uglifier'
 
