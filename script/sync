@@ -1,4 +1,6 @@
 #!/bin/sh
+# Refreshes branches from both GitHub and production and tries to fast-forward
+# the current branch.
 set -e
 
 git fetch origin

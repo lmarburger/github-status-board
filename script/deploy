@@ -1,7 +1,18 @@
 #!/bin/sh
+# Pushes code to "production" remote.
+# When on "master" branch, first tries to push code to GitHub to verify that
+# the local branch is up to date.
+set -e
+
 if [ "$1" = -f ]; then
   force=+
   shift 1
+fi
+
+branch="$(git symbolic-ref -q HEAD 2>/dev/null || true)"
+
+if [ "$branch" = refs/heads/master ]; then
+  git push origin master
 fi
 
 git push production ${force}HEAD:master
