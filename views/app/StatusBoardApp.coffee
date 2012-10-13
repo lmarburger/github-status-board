@@ -10,12 +10,17 @@ class GB.StatusBoardApp extends Backbone.View
     @repos = new GB.Repos()
     @pullRequests = new GB.PullRequests()
     @listView = new GB.ListView(collection: @repos)
+    @feedView = new GB.MainView(collection: @listView.repos())
     
-    # @listView.render().$el.appendTo $('#list')
     
     @detailContainer = @$('#detail')
     
-    @repos.bind('reset', @renderListView, @)
+    @listView.on('change:selection', @renderMainView, @)
+    @repos.on('reset', @renderListView, @)
+  
+  renderMainView: () ->
+    console.log "renderMainView"
+    @listView.repos()
   
   renderListView: () ->
     @$('#list').html @listView.render().$el
@@ -29,7 +34,7 @@ class GB.StatusBoardApp extends Backbone.View
     @detailContainer.html commitView.render().$el
     
   showRepos: () ->
-    ids = self.listView.selectedCommitIds()
+    ids = @listView.selectedCommitIds()
     
 $ -> 
   window.App = new GB.StatusBoardApp()

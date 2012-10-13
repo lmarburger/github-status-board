@@ -1,4 +1,5 @@
 window.GB ||= {}
+
 class GB.ListView extends Backbone.View
   
   selectedRepoSlugs: []
@@ -11,6 +12,9 @@ class GB.ListView extends Backbone.View
     slug = element.data('repo-slug')
     repo = @collection.where(slug: slug)[0]
     repo.toggleSelected()
+    
+    console.log 'trigger'
+    @trigger('change:selection', repos())
     
   repos: () ->
     @collection.where(id: selectedRepoSlugs)

@@ -1,7 +1,7 @@
 window.GB ||= {}
 class GB.FeedView extends Backbone.View
   
-  events: 
+  # events: 
     # 
     
   render: ->
