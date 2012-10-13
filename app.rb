@@ -38,6 +38,11 @@ helpers do
     content_type 'application/json'
     JSON.generate obj
   end
+
+  def pretty_json obj
+    content_type 'application/json'
+    JSON.pretty_generate obj
+  end
 end
 
 get "/" do
@@ -123,7 +128,7 @@ namespace '/api/repos' do
       }
     }.compact
 
-    JSON.pretty_generate events
+    pretty_json events
   end
 
   # get '/:owner/:repo' do |owner, repo|
