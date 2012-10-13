@@ -7,7 +7,8 @@ require 'sinatra/namespace'
 require 'json'
 require 'oauth2'
 require 'octokit'
-
+require 'rack/cache'
+require 'faraday_middleware'
 
 config_file 'config.yml'
 
@@ -20,7 +21,6 @@ use Rack::Static, :urls => %w[/favicon.ico /apple-touch-icon], :root => 'public'
 set(:cache_folder) { "#{settings.root}/tmp/cache" }
 
 configure :production do
-  require 'rack/cache'
   use Rack::Cache,
     allow_reload: true,
     verbose:      settings.development?,
@@ -175,8 +175,27 @@ def oauth_client
                      token_url:     'oauth/access_token'
 end
 
+PrivateCacheBuster = Struct.new :app do
+  def call env
+    response = app.call env
+    response['cache-control'].sub!('private, ', '')
+    response
+  end
+end
+
 def octo_client
-  Octokit::Client.new oauth_token: cookies[:token]
+  cache_prefix = settings.cache_folder + '/api_'
+
+  Octokit::Client.new oauth_token: cookies[:token],
+    proxy: 'http://localhost:8888',
+    faraday_config_block: lambda { |conn|
+      # conn.response :logger, ::Logger.new('log/faraday.log')
+      conn.use FaradayMiddleware::RackCompatible, Rack::Cache::Context,
+        :metastore   => "file:#{cache_prefix}meta",
+        :entitystore => "file:#{cache_prefix}body",
+        :ignore_headers => %w[Set-Cookie X-Content-Digest]
+      conn.use PrivateCacheBuster
+    }
 end
 
 def repos

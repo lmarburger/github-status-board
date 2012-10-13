@@ -20,6 +20,7 @@ gem 'oauth2'
 gem 'octokit'
 gem 'uglifier'
 gem 'rack-cache'
+gem 'faraday_middleware'
 
 group :production do
   gem 'therubyracer'

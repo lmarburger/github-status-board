@@ -103,6 +103,7 @@ DEPENDENCIES
   bourbon
   coffee-script
   debugger
+  faraday_middleware
   i18n
   oauth2
   octokit
