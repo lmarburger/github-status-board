@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "restarting Unicorn"
+kill -HUP $(cat tmp/pids/unicorn.pid)

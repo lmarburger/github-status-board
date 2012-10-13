@@ -1,2 +1,6 @@
 #!/bin/sh
 bundle install --without production
+
+if ! git remote | grep production >/dev/null; then
+  git remote add production deploy@198.74.58.178:/home/deploy/rumble
+fi

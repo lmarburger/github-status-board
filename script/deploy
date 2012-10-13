@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ "$1" = -f ]; then
+  force=+
+  shift 1
+fi
+
+git push production ${force}HEAD:master
