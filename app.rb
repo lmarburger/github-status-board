@@ -14,6 +14,8 @@ config_file 'config.yml'
 
 enable :show_exceptions
 
+set(:js_assets) { Dir['**/*.{js,coffee}'].sort }
+
 use Rack::Static, :urls => %w[/favicon.ico /apple-touch-icon], :root => 'public'
 
 set(:cache_folder) { "#{settings.root}/tmp/cache" }
