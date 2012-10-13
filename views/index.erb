@@ -4,7 +4,8 @@
 <%= javascript_includes %>
 <link href='/style.css' rel='stylesheet' type='text/css'>
 
-<h1>New application</h1>
-<p>Hello from your new app.</p>
-
-<button>Hey there</button>
+<ul>
+  <% repos.each do |repo| %>
+    <li><%= repo %></li>
+  <% end %>
+</ul>
