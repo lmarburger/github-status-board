@@ -10,6 +10,7 @@ group :development do
   gem 'thin'
   gem 'ruby-debug', :platforms => :mri_18
   gem 'debugger', :platforms => :mri_19
+  gem 'terminal-notifier'
 end
 
 gem 'sass'
