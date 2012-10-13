@@ -31,23 +31,25 @@ end
 require 'rack/deflater'
 use Rack::Deflater
 
-require 'terminal-notifier'
+configure :development do
+  require 'terminal-notifier'
 
-BreakageYeller = Struct.new(:app) {
-  def call env
-    begin
-      app.call env
-    rescue
-      path = env['PATH_INFO']
-      if path =~ /\.(js|css)\b/
-        TerminalNotifier.notify(path, title: 'Asset broken')
+  BreakageYeller = Struct.new(:app) {
+    def call env
+      begin
+        app.call env
+      rescue
+        path = env['PATH_INFO']
+        if path =~ /\.(js|css)\b/
+          TerminalNotifier.notify(path, title: 'Asset broken')
+        end
+        raise
       end
-      raise
     end
-  end
-}
+  }
 
-use BreakageYeller
+  use BreakageYeller
+end
 
 require 'sinatra_boilerplate'
 
