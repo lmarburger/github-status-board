@@ -7,9 +7,13 @@ class GB.ListView extends Backbone.View
   selectedRepoSlugs: []
   
   events: 
+    'touchstart li a': 'didClickRepo'
     'mousedown li a': 'didClickRepo'
     
   didClickRepo: (e) ->
+    e.stopPropagation()
+    e.preventDefault()
+    
     element = $(e.target).closest('li')
     slug = element.data('repo-slug')
     repo = @collection.where(slug: slug)[0]
@@ -22,6 +26,8 @@ class GB.ListView extends Backbone.View
       @selectedRepoSlugs.remove(repo.get('slug'))
     
     @trigger('change:selection', @repos())
+    
+    
     
   repos: () ->
     _.filter @collection.models, (repo) => 
