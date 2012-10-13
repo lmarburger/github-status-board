@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'sinatra'
+gem 'sinatra-contrib'
 gem 'activesupport'
 gem 'i18n' # stupid activesupport dependency
 
