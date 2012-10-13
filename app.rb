@@ -13,7 +13,7 @@ config_file 'config.yml'
 
 enable :show_exceptions
 
-set(:js_assets) { Dir['**/*.{js,coffee}'].sort }
+set(:js_assets) { Dir['{public,views}/**/*.{js,coffee}'].sort }
 
 use Rack::Static, :urls => %w[/favicon.ico /apple-touch-icon], :root => 'public'
 
