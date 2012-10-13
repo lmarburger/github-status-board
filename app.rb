@@ -7,6 +7,8 @@ require 'octokit'
 
 config_file 'config.yml'
 
+enable :show_exceptions
+
 set :js_assets, %w[zepto.js underscore.js app.coffee]
 
 configure :development do

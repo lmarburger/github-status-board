@@ -13,6 +13,10 @@ timeout 30
 listen "#{app_dir}/tmp/sockets/unicorn.sock", :backlog => 1024
 pid    "#{app_dir}/tmp/pids/unicorn.pid"
 
+log_path = "#{app_dir}/log/#{RACK_ENV}.log"
+stderr_path log_path
+stdout_path log_path
+
 # http://www.rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
 if GC.respond_to?(:copy_on_write_friendly=)
   GC.copy_on_write_friendly = true
