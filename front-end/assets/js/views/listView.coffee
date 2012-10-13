@@ -1,14 +1,28 @@
 window.GB ||= {}
 class GB.ListView extends Backbone.View
   
+  selectedRepoSlugs: []
+  
   events: 
-    'click .repo': 'showRepo'
+    'click li a': 'didClickRepo'
     
-  showRepo: (e) ->
-    console.log "Showing repo."
-    repo = @collection.get($(e.targetElement).data('repo-id'))
+  didClickRepo: (e) ->
+    element = $(e.target).closest('li')
+    slug = element.data('repo-slug')
+    repo = @collection.where(slug: slug)[0]
+    repo.toggleSelected()
     
+  repos: () ->
+    @collection.where(id: selectedRepoSlugs)
+    
+  template: () ->
+    GB.ListViewTemplate
+  
   render: ->
-    if @collection
-      @collection.each (repo) ->
-        view = new GB.RepoListView(model : repo)
+    @$el.html @template()
+    
+    @collection.each (repo) =>
+      view = new GB.RepoListView(model : repo)
+      view.render().$el.appendTo @$("ul")
+      
+    @

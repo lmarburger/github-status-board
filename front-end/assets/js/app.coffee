@@ -1,6 +1,9 @@
 window.GB ||= {}
 
 class GB.Repo extends Backbone.Model
+  @selected = false
+  toggleSelected: () ->
+    @set('selected', !@get('selected'))
   
 class GB.Repos extends Backbone.Collection  
   model: GB.Repo
@@ -17,9 +20,5 @@ class GB.User extends Backbone.Model
 
 class GB.PullRequest extends Backbone.Model
 
-  
 class GB.PullRequests extends Backbone.Collection
   model: GB.PullRequest
-
-$ () =>
-  window.app = new GB.StatusBoardApp

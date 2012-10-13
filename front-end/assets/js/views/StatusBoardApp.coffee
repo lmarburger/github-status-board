@@ -1,15 +1,35 @@
 window.GB ||= {}
 
 class GB.StatusBoardApp extends Backbone.View
-  constructor: () ->
+    
+  initialize: ->
+    
+    @setElement $('app')
+    
     @user = new GB.User()
     @repos = new GB.Repos()
     @pullRequests = new GB.PullRequests()
-    @listView = new GB.ListView()
+    @listView = new GB.ListView(collection: @repos)
+    
+    # @listView.render().$el.appendTo $('#list')
+    
+    @detailContainer = @$('#detail')
+    
+    @repos.bind('reset', @renderListView, @)
+  
+  renderListView: () ->
+    @$('#list').html @listView.render().$el
   
   loadAll: (callback) ->
     @repos.fetch()
     callback() if callback?
+    
+  showCommit: (commit) ->
+    commitView = GB.CommitView(model: commit)
+    @detailContainer.html commitView.render().$el
+    
+  showRepos: () ->
+    ids = self.listView.selectedCommitIds()
     
 $ -> 
   window.App = new GB.StatusBoardApp()
@@ -17,17 +37,6 @@ $ ->
   window.App.loadAll () ->
     
     # Dummy stuff until we have an API.
-  
-    window.App.repos.reset [
-      {name: "Elliott's Repo", slug: "elliotts-repo"},
-      {name: "Hector's Repo", slug: "elliotts-repo", commits: [
-        {sha: "12345", message: "abc"},
-        {sha: "2345", message: "abc"},
-        {sha: "3456", message: "abc"},
-        {sha: "4567", message: "abc"},
-        {sha: "5678", message: "abc"}
-      ]}
-    ]
   
     window.App.user.set({
       name: "Elliott Kember",
