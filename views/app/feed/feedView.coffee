@@ -6,16 +6,13 @@ class GB.FeedView extends Backbone.View
   template: () ->
     Handlebars.compile(GB.FeedViewTemplate)()
   
-  
   render: ->
-    
-    console.log 'render'
-    
-    _.each @oldModels, (model) => model.unbind('change')
+        
+    _.each @oldModels, (model) => model.events.unbind('change reset')
     
     @oldModels = @model
     
-    _.each @model, (model) => model.on('change', @render, @)
+    _.each @model, (model) => model.events.on('change reset', @render, @)
     
     @$el.html @template()
     

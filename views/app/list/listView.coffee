@@ -7,7 +7,7 @@ class GB.ListView extends Backbone.View
   selectedRepoSlugs: []
   
   events: 
-    'click li a': 'didClickRepo'
+    'mousedown li a': 'didClickRepo'
     
   didClickRepo: (e) ->
     element = $(e.target).closest('li')
