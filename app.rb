@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'sinatra'
 require 'sinatra/config_file'
+require 'sinatra/cookies'
 require 'sinatra_boilerplate'
 
 require 'oauth2'
@@ -17,18 +18,37 @@ configure :development do
 end
 
 get "/" do
-  erb :index
+  if cookies[:token]
+    erb :index
+  else
+    redirect '/auth'
+  end
 end
 
 get '/auth' do
-  client = OAuth2::Client.new settings.github_application[:client_id],
-                              settings.github_application[:client_secret],
-                              site:          'https://github.com/login',
-                              authorize_url: 'oauth/authorize',
-                              token_url:     'oauth/access_token'
-  redirect client.auth_code.authorize_url
+  redirect oauth_client.auth_code.authorize_url
 end
 
 get '/callback' do
-  raise params.inspect
+  token = oauth_client.auth_code.get_token params[:code]
+  cookies[:token] = token.token
+  redirect '/'
+end
+
+private
+
+def oauth_client
+  OAuth2::Client.new settings.github_application[:client_id],
+                     settings.github_application[:secret],
+                     site:          'https://github.com/login',
+                     authorize_url: 'oauth/authorize',
+                     token_url:     'oauth/access_token'
+end
+
+def octo_client(token)
+  Octokit::Client.new oauth_token: token
+end
+
+def repos
+  octo_client(cookies[:token]).repos
 end

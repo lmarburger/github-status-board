@@ -4,4 +4,8 @@
 <%= javascript_includes %>
 <link href='/style.css' rel='stylesheet' type='text/css'>
 
-<a href="/auth">Auth</a>
+<ul>
+  <% repos.each do |repo| %>
+    <li><%= repo.name %></li>
+  <% end %>
+</ul>
