@@ -17,10 +17,6 @@ enable :show_exceptions
 
 set :js_assets, %w[zepto.js underscore.js app.coffee]
 
-configure :development do
-  set :logging, false
-end
-
 get "/" do
   if cookies[:token]
     erb :index
