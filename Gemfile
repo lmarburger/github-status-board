@@ -24,5 +24,4 @@ gem 'faraday_middleware'
 
 group :production do
   gem 'therubyracer'
-  gem 'unicorn'
 end
