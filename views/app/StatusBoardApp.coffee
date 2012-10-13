@@ -9,9 +9,11 @@ class GB.StatusBoardApp extends Backbone.View
     @user = new GB.User()
     @repos = new GB.Repos()
     @pullRequests = new GB.PullRequests()
-    @listView = new GB.ListView(collection: @repos)
-    @feedView = new GB.MainView(collection: @listView.repos())
     
+    @listView = new GB.ListView(collection: @repos)
+    @feedView = new GB.FeedView(model: @listView.repos())
+    
+    @$('#detail').html @feedView.render().$el
     
     @detailContainer = @$('#detail')
     
@@ -19,14 +21,16 @@ class GB.StatusBoardApp extends Backbone.View
     @repos.on('reset', @renderListView, @)
   
   renderMainView: () ->
-    console.log "renderMainView"
-    @listView.repos()
+    @feedView.model = @listView.repos()
+    @feedView.render()
   
   renderListView: () ->
     @$('#list').html @listView.render().$el
   
   loadAll: (callback) ->
     @repos.fetch()
+    @repos.each (repo) ->
+      repo.fetch()
     callback() if callback?
     
   showCommit: (commit) ->

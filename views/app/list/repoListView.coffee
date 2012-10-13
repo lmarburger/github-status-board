@@ -6,7 +6,7 @@ class GB.RepoListView extends Backbone.View
   tagName: "li"
   
   render: () ->
-    @$el.html Mustache.to_html(GB.RepoListViewTemplate, @model.attributes)
+    @$el.html Handlebars.compile(GB.RepoListViewTemplate)(@model.attributes)
     @$el.data("repo-slug", @model.get('slug'))
     if @model.get('selected')
       @$el.addClass('selected')

@@ -10,10 +10,6 @@ html {
   height: 100%;
 }
 
-body {
-  background: url(apple-touch-icon.png) no-repeat center center;
-}
-
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
   
   /* Styles for mobile */
@@ -88,4 +84,12 @@ h2 {
 
 #list ul li.selected {
   background: rgb(255, 0, 255);
+}
+
+ul.commits {
+  li {
+    list-style-type: none;
+    padding-left: 50px;
+  }
+  
 }

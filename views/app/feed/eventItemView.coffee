@@ -1,7 +1,14 @@
 class GB.EventItemView extends Backbone.View
   
   template: ->
-    Mustache.to_html eval("GB.#{@model.get('type')}Template"), @model.attributes
+    
+    window.m = @model
+    if @model.get('type') && eval("GB.#{@model.get('type')}Template")
+      template = Handlebars.compile(eval("GB.#{@model.get('type')}Template"))
+      template(@model.attributes)
+    else
+      "<span>#{@model.get('type')}"
   
   render: ->
     @$el.html @template()
+    @
