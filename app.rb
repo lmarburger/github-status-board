@@ -63,12 +63,12 @@ end
 namespace '/api' do
   get '/repos' do
     [{name: "Elliott's Repo", slug: "elliotts-repo"},
-    {name: "Hector's Repo", slug: "hectors-repo", commits: [
-      {sha: "12345", message: "abc"},
-      {sha: "2345", message: "abc"},
-      {sha: "3456", message: "abc"},
-      {sha: "4567", message: "abc"},
-      {sha: "5678", message: "abc"}
+    {name: "Hector's Repo", slug: "hectors-repo", events: [
+      {type: "CommitEvent" sha: "12345", message: "abc"},
+      {type: "CommitEvent" sha: "2345", message: "abc"},
+      {type: "CommitEvent" sha: "3456", message: "abc"},
+      {type: "CommitEvent" sha: "4567", message: "abc"},
+      {type: "CommitEvent" sha: "5678", message: "abc"}
     ]}].to_json
   end
 

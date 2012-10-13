@@ -9,12 +9,7 @@ class GB.FeedView extends Backbone.View
     
     # Please. "item" is a misnomer, these are events. "event" just felt wrong.
     _.each @collection, (item) =>
-      
-      switch feedEvent.get('type')
-        when "IssueCommentEvent"
-          view = new GB.IssueCommentEventView(model: item)
-        when "PushEvent"
-          view = new GB.PushEventView(model: item)
-      
+      view = new GB.EventItemView(model: item)
+      view.render().$el.appendTo @$el
       
     @
