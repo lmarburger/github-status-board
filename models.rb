@@ -60,10 +60,15 @@ StatusBoard = Struct.new :auth_token do
     filter_events events
   end
 
+
+  # [{ slug: 'railsrumble/r12-team-184', events: [{...}] },
+  #  { namslug: 'troy/txlogic', events: [{...}] }]
   def events_by_repo
     events = events_for_authenticated_user.
       each_with_object(Hash.new([])) {|event, grouped|
         grouped[event.repo.name] += [event]
+      }.map {|slug, events|
+        { slug: slug, events: events }
       }
   end
 
