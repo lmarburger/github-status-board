@@ -95,9 +95,7 @@ end
 # API
 namespace '/api/repos' do
   get do
-    json status_board.repos.map {|repo|
-      { name: repo.name, slug: repo.full_name }
-    }
+    pretty_json status_board.events_by_repo
   end
 
   get '/:owner/:repo/events' do |owner, repo|
@@ -105,16 +103,4 @@ namespace '/api/repos' do
 
     pretty_json events
   end
-
-  # get '/:owner/:repo' do |owner, repo|
-  #   json octo_client.repsitory(owner: owner, repo: repo)
-  # end
-
-  # get '/:owner/:repo/commits' do |owner, repo|
-  #   json []
-  # end
-
-  # get '/:owner/:repo/commits/:sha' do |owner, repo, sha|
-  #   json Hash.new
-  # end
 end

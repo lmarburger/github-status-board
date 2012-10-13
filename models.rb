@@ -55,6 +55,18 @@ StatusBoard = Struct.new :auth_token do
     filter_events events
   end
 
+  def events_for_authenticated_user
+    events = api_client.user_events(api_client.user.login)
+    filter_events events
+  end
+
+  def events_by_repo
+    events = events_for_authenticated_user.
+      each_with_object(Hash.new {|key, value| key[value] = []}) {|event, grouped|
+        grouped[event.repo.name] << event
+      }
+  end
+
   def repos
     api_client.repos(nil, sort: 'pushed')
   end
