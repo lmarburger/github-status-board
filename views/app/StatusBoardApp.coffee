@@ -17,7 +17,7 @@ class GB.StatusBoardApp extends Backbone.View
     @detailContainer = @$('#detail')
     
     @listView.on('change:selection', @renderMainView, @)
-    @repos.on('reset', @renderListView, @)
+    @repos.on('reset change', @renderListView, @)
   
   renderMainView: () ->
     @feedView.model = @listView.repos()
@@ -28,8 +28,8 @@ class GB.StatusBoardApp extends Backbone.View
   
   loadAll: (callback) ->
     @repos.fetch()
-    @repos.each (repo) ->
-      repo.fetch()
+    # @repos.each (repo) ->
+    #   repo.fetch()
     callback() if callback?
     
   showCommit: (commit) ->

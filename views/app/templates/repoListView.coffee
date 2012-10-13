@@ -1,3 +1,3 @@
 GB.RepoListViewTemplate = "
-  <a><span>{{name}}</span></a>
+  <a><span>{{slug}}</span></a>
 "
