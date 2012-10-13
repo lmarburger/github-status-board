@@ -28,7 +28,7 @@ get "/" do
   if cookies[:token]
     erb :index
   else
-    redirect '/auth'
+    erb :login
   end
 end
 
