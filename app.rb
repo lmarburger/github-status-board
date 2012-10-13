@@ -2,7 +2,6 @@
 require 'sinatra'
 require 'sinatra/config_file'
 require 'sinatra/cookies'
-require 'sinatra_boilerplate'
 
 require 'oauth2'
 require 'octokit'
@@ -15,7 +14,25 @@ config_file 'config.yml'
 
 enable :show_exceptions
 
+use Rack::Static, :urls => %w[/favicon.ico /apple-touch-icon], :root => 'public'
+
 set :js_assets, %w[zepto.js underscore.js app.coffee]
+
+set(:cache_folder) { "#{settings.root}/tmp/cache" }
+
+configure do
+  require 'rack/cache'
+  use Rack::Cache,
+    allow_reload: true,
+    verbose:      settings.development?,
+    metastore:    "file:#{settings.cache_folder}/meta",
+    entitystore:  "file:#{settings.cache_folder}/body"
+end
+
+require 'rack/deflater'
+use Rack::Deflater
+
+require 'sinatra_boilerplate'
 
 helpers do
   def json obj
