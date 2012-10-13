@@ -4,7 +4,7 @@ class GB.FeedView extends Backbone.View
   events: {}
     
   template: () ->
-    Handlebars.compile(GB.FeedViewTemplate)({name: "a"})
+    Handlebars.compile(GB.FeedViewTemplate)()
   
   render: ->
     @$el.html @template()
