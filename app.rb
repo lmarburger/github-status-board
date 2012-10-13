@@ -44,7 +44,14 @@ end
 # API
 namespace '/api' do
   get '/repos' do
-    [].to_json
+    [{name: "Elliott's Repo", slug: "elliotts-repo"},
+    {name: "Hector's Repo", slug: "hectors-repo", commits: [
+      {sha: "12345", message: "abc"},
+      {sha: "2345", message: "abc"},
+      {sha: "3456", message: "abc"},
+      {sha: "4567", message: "abc"},
+      {sha: "5678", message: "abc"}
+    ]}].to_json
   end
 
   get '/repos/:id' do
