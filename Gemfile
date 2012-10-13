@@ -18,6 +18,7 @@ gem 'coffee-script'
 gem 'oauth2'
 gem 'octokit'
 gem 'uglifier'
+gem 'rack-cache'
 
 group :production do
   gem 'therubyracer'
