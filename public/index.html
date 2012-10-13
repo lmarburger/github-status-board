@@ -1,52 +1,8 @@
-<!DOCTYPE html SYSTEM>
-<html>
-
-<head>
-
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
-  
-  <script>
-        setTimeout(function(){
-          ws = new WebSocket('ws://localhost:35353')
-          ws.onopen = function(){ws.onclose = function(){document.location.reload()}}
-        }, 500)
-      </script>
-
-  <link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
-  
-  <script src="assets/js/libraries/1_jquery-1.7.2.min.js" type="text/javascript"></script>
-<script src="assets/js/libraries/2_underscore.js" type="text/javascript"></script>
-<script src="assets/js/libraries/3_backbone.js" type="text/javascript"></script>
-<script src="assets/js/libraries/4_mustache.js" type="text/javascript"></script>
-  <script src="assets/js/app.js" type="text/javascript"></script>
-<script src="assets/js/views/events/comment.js" type="text/javascript"></script>
-<script src="assets/js/views/events/commit.js" type="text/javascript"></script>
-<script src="assets/js/views/events/fork.js" type="text/javascript"></script>
-<script src="assets/js/views/events/merge.js" type="text/javascript"></script>
-<script src="assets/js/views/events/pull_request.js" type="text/javascript"></script>
-<script src="assets/js/views/events/push.js" type="text/javascript"></script>
-<script src="assets/js/views/listView.js" type="text/javascript"></script>
-<script src="assets/js/views/repoListView.js" type="text/javascript"></script>
-<script src="assets/js/views/StatusBoardApp.js" type="text/javascript"></script>
-<script src="assets/js/views/templates/listView.js" type="text/javascript"></script>
-<script src="assets/js/views/templates/repoListView.js" type="text/javascript"></script>
-  
-  <link rel="shortcut icon" href="assets/favicon.ico" />
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-  
-  <title>New Project</title>
-		
-</head>
-
-<body>
+<!-- @include _header -->
 
 <app>
   <list id="list"></list>
   <detail id="detail"></detail>
 </app>
 
-</body>
-
-</html>
+<!-- @include _footer -->
