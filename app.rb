@@ -10,6 +10,8 @@ require 'octokit'
 require 'rack/cache'
 require 'faraday_middleware'
 
+require_relative 'models'
+
 config_file 'config.yml'
 
 enable :show_exceptions
@@ -63,6 +65,10 @@ helpers do
     content_type 'application/json'
     JSON.pretty_generate obj
   end
+
+  def auth_process
+    AuthProcess.new(settings)
+  end
 end
 
 get "/" do
@@ -74,12 +80,11 @@ get "/" do
 end
 
 get '/auth' do
-  redirect oauth_client.auth_code.authorize_url
+  redirect auth_process.authorize_url
 end
 
 get '/callback' do
-  token = oauth_client.auth_code.get_token params[:code]
-  cookies[:token] = token.token
+  cookies[:token] = auth_process.get_token params[:code]
   redirect '/'
 end
 
@@ -166,14 +171,6 @@ end
 
 
 private
-
-def oauth_client
-  OAuth2::Client.new settings.github_application[:client_id],
-                     settings.github_application[:secret],
-                     site:          'https://github.com/login',
-                     authorize_url: 'oauth/authorize?scope=repo',
-                     token_url:     'oauth/access_token'
-end
 
 PrivateCacheBuster = Struct.new :app do
   def call env
