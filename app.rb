@@ -7,6 +7,10 @@ require 'sinatra_boilerplate'
 require 'oauth2'
 require 'octokit'
 
+require 'json'
+require "sinatra/namespace"
+
+
 config_file 'config.yml'
 
 enable :show_exceptions
@@ -34,6 +38,41 @@ get '/callback' do
   cookies[:token] = token.token
   redirect '/'
 end
+
+
+
+# API
+namespace '/api' do
+  get '/repos' do
+    [].to_json
+  end
+
+  get '/repos/:id' do
+    {}.to_json
+  end
+
+  get '/repos/:id/commits' do
+    [].to_json
+  end
+
+  get '/commits/:id' do
+    {}.to_json
+  end
+
+  get '/repos/:id/events' do
+    [].to_json
+  end
+
+  get '/events' do
+    [].to_json
+  end
+
+  get '/events/:id' do
+    {}
+  end
+end
+
+
 
 private
 
