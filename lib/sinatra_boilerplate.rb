@@ -70,7 +70,11 @@ module SinatraBoilerplate
 
     def javascript_files
       settings.js_assets.map do |name|
-        name.end_with?('.coffee') ? template_path(name) : File.join(settings.public_folder, name)
+        if name.index '/'
+          name
+        else
+          name.end_with?('.coffee') ? template_path(name) : File.join(settings.public_folder, name)
+        end
       end
     end
 
@@ -105,12 +109,14 @@ module SinatraBoilerplate
 
   module Helpers
     def javascript_assets
-      settings.js_assets
+      settings.js_assets.map { |path|
+        path.sub(/^(public|views)/, '').sub('.coffee', '.js')
+      }
     end
 
     def javascript_includes_names
       if settings.production? then %w[/all.js]
-      else javascript_assets.map {|f| "/#{File.basename(f, '.*')}.js" }
+      else javascript_assets
       end
     end
 

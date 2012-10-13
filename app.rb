@@ -15,7 +15,7 @@ config_file 'config.yml'
 
 enable :show_exceptions
 
-set :js_assets, %w[zepto.js underscore.js app.coffee]
+set :js_assets, Dir['**/*.{js,coffee}'].sort
 
 configure :development do
   set :logging, false
