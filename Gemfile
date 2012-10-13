@@ -16,5 +16,9 @@ gem 'sass'
 gem 'bourbon'
 gem 'coffee-script'
 gem 'octokit'
-gem 'therubyracer', :group => :production
 gem 'uglifier'
+
+group :production do
+  gem 'therubyracer'
+  gem 'unicorn'
+end
