@@ -6,4 +6,5 @@ GB.PushEventTemplate = "
       <li>{{sha}} - {{message}}</li>
     {{/each}}
   </ul>
+  <time>{{ago created_at}}</time>
 "

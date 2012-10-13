@@ -15,11 +15,9 @@ class GB.FeedView extends Backbone.View
     ))
     
     events = _.sortBy(events, (e) ->
-      new Date(e.get('created_at'))
+      - (new Date(e.get('created_at')))
     )
     
-    # Please. "item" is a misnomer, these are events. "event" just felt wrong.
-    _.each events, (item) =>
-      view = new GB.EventItemView(model: item)
-      view.render().$el.appendTo @$('#events')
+    _.each events, (thisEvent) =>
+      new GB.EventItemView(model: thisEvent).render().$el.appendTo @$('#events')
     @

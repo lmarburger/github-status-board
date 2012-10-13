@@ -13,4 +13,5 @@ GB.PullRequestEventTemplate = "
       {{/with}}
     </li>
   </ul>
+  <time>{{ago created_at}}</time>
 "
