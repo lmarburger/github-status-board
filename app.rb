@@ -2,12 +2,11 @@
 require 'sinatra'
 require 'sinatra/config_file'
 require 'sinatra/cookies'
-
-require 'oauth2'
-require 'octokit'
+require 'sinatra/namespace'
 
 require 'json'
-require "sinatra/namespace"
+require 'oauth2'
+require 'octokit'
 
 
 config_file 'config.yml'
@@ -60,45 +59,85 @@ get '/callback' do
 end
 
 
-
 # API
-namespace '/api' do
-  get '/repos' do
-    [{name: "Elliott's Repo", slug: "elliotts-repo"},
-    {name: "Hector's Repo", slug: "hectors-repo", events: [
-      {type: "CommitEvent", sha: "12345", message: "abc"},
-      {type: "CommitEvent", sha: "2345", message: "abc"},
-      {type: "CommitEvent", sha: "3456", message: "abc"},
-      {type: "CommitEvent", sha: "4567", message: "abc"},
-      {type: "CommitEvent", sha: "5678", message: "abc"}
-    ]}].to_json
+namespace '/api/repos' do
+  get do
+    json repos.map {|repo|
+      { name: repo.name, slug: repo.full_name }
+    }
   end
 
-  get '/repos/:id' do
-    json Hash.new
+  get '/:owner/:repo/events' do |owner, repo|
+    events = octo_client.repository_events(owner: owner, repo: repo).map {|event|
+
+      # http://developer.github.com/v3/events/types
+      payload = case event.type
+
+                # ref_type, ref, master_branch, description
+                when 'CreateEvent'
+                  event.payload
+                # ref_type, ref
+                when 'DeleteEvent'
+                  event.payload
+
+                # head, ref, size, commits (sha, message,
+                #                           author (name, email),
+                #                           url)
+                when 'PushEvent'
+                  event.payload
+
+                # action (open, closed, reopened),
+                # issue (http://developer.github.com/v3/issues),
+                when 'IssuesEvent'
+                  event.payload
+                # number, pull_request (http://developer.github.com/v3/pulls)
+                when 'PullRequestEvent'
+                  event.payload
+
+                # comment (http://developer.github.com/v3/issues/comments)
+                when 'CommitCommentEvent'
+                  event.payload
+                # action (created),
+                # issue (http://developer.github.com/v3/issues),
+                # comment (http://developer.github.com/v3/issues/comments)
+                when 'IssueCommentEvent'
+                  event.payload
+                # comment (http://developer.github.com/v3/issues/comments)
+                # raise 'PullRequestReviewCommentEvent'
+                when 'PullRequestReviewCommentEvent'
+                  event.payload
+
+                # TODO: when 'MemberEvent'
+                end
+
+      next unless payload
+
+      { created_at: event.created_at,
+        type: event.type,
+        actor: event.actor.login,
+        repo: {
+          name: event.repo.name,
+          url:  event.repo.url
+        },
+        payload:  payload
+      }
+    }.compact
+
+    JSON.pretty_generate events
   end
 
-  get '/repos/:id/commits' do
-    json []
-  end
+  # get '/:owner/:repo' do |owner, repo|
+  #   json octo_client.repsitory(owner: owner, repo: repo)
+  # end
 
-  get '/commits/:id' do
-    json Hash.new
-  end
+  # get '/:owner/:repo/commits' do |owner, repo|
+  #   json []
+  # end
 
-  get '/repos/:id/events' do
-    json []
-  end
-
-  get '/events' do
-    json []
-  end
-
-  get '/events/:id' do
-    json Hash.new
-  end
+  # get '/:owner/:repo/commits/:sha' do |owner, repo, sha|
+  #   json Hash.new
+  # end
 end
-
 
 
 private
@@ -107,14 +146,16 @@ def oauth_client
   OAuth2::Client.new settings.github_application[:client_id],
                      settings.github_application[:secret],
                      site:          'https://github.com/login',
-                     authorize_url: 'oauth/authorize',
+                     authorize_url: 'oauth/authorize?scope=repo',
                      token_url:     'oauth/access_token'
 end
 
-def octo_client(token)
-  Octokit::Client.new oauth_token: token, auto_traversal: true
+def octo_client
+  Octokit::Client.new oauth_token: cookies[:token]
 end
 
 def repos
-  octo_client(cookies[:token]).repos(nil, sort: 'pushed')
+  octo_client.repos(nil, sort: 'pushed')
+rescue Octokit::Unauthorized
+  redirect '/'
 end
