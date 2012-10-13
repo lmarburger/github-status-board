@@ -20,7 +20,7 @@ use Rack::Static, :urls => %w[/favicon.ico /apple-touch-icon], :root => 'public'
 
 set(:cache_folder) { "#{settings.root}/tmp/cache" }
 
-configure do
+configure :production do
   require 'rack/cache'
   use Rack::Cache,
     allow_reload: true,
