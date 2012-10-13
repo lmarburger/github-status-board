@@ -17,6 +17,13 @@ enable :show_exceptions
 
 set :js_assets, %w[zepto.js underscore.js app.coffee]
 
+helpers do
+  def json obj
+    content_type 'application/json'
+    JSON.generate obj
+  end
+end
+
 get "/" do
   if cookies[:token]
     erb :index
@@ -40,31 +47,31 @@ end
 # API
 namespace '/api' do
   get '/repos' do
-    [].to_json
+    json []
   end
 
   get '/repos/:id' do
-    {}.to_json
+    json Hash.new
   end
 
   get '/repos/:id/commits' do
-    [].to_json
+    json []
   end
 
   get '/commits/:id' do
-    {}.to_json
+    json Hash.new
   end
 
   get '/repos/:id/events' do
-    [].to_json
+    json []
   end
 
   get '/events' do
-    [].to_json
+    json []
   end
 
   get '/events/:id' do
-    {}
+    json Hash.new
   end
 end
 
