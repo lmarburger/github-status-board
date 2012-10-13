@@ -62,8 +62,8 @@ StatusBoard = Struct.new :auth_token do
 
   def events_by_repo
     events = events_for_authenticated_user.
-      each_with_object(Hash.new {|key, value| key[value] = []}) {|event, grouped|
-        grouped[event.repo.name] << event
+      each_with_object(Hash.new([])) {|event, grouped|
+        grouped[event.repo.name] += [event]
       }
   end
 
