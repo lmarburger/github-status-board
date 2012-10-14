@@ -1,7 +1,7 @@
 class GB.CommitDetailView extends Backbone.View
   
   template: ->
-    Handlebars.compile(GB.CommitDetailViewTemplate)(@model.attributes)
+    Handlebars.compile(GB.CommitDetailTemplate)(@model.attributes)
   
   initialize: ->
     GB.CommitDetailView.__super__.initialize.apply(this, arguments);
