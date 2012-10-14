@@ -110,7 +110,7 @@ get "/" do
   if session[:token]
     erb :index
   else
-    erb :login, layout: false
+    erb :login
   end
 end
 
