@@ -16,10 +16,7 @@ class GB.FeedView extends Backbone.View
   fetchMore: () ->
     @$('.more').css('opacity', 0.4)
     App.repos.fetchEventsIfSelected () =>
-      @reRender()
-      @$('#events').scrollTop(1000)
-    
-  reRender: ->  
+      @render()
   
   addOne: (thisEvent) ->
     
@@ -35,14 +32,13 @@ class GB.FeedView extends Backbone.View
     
   render: ->
     
-    $('#events').empty()
+    @$('#events').empty()
     
-    _.each @oldModels, (model) => model.events.unbind('change add reset')
+    _.each @oldModels, (model) => model.events.unbind('change reset')
     
     @oldModels = @model
     _.each @model, (model) => 
       model.events.on('change reset', @render, @)
-      model.events.on('add', @addOne, @)
     
     @$el.html @template()
     
@@ -53,8 +49,6 @@ class GB.FeedView extends Backbone.View
     @previousEventRepoId = null
     _.each events, (thisEvent) =>
       @addOne(thisEvent)
-    
-    
     
     @$('.loading').remove() if @model.length > 0
     
