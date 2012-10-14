@@ -27,6 +27,7 @@ class GB.StatusBoardApp extends Backbone.View
   events: 
     'click .sha': 'showCommit'
     'click #back': 'hideDetails'
+    'click #toggle-all': 'toggleAll'
   
   renderMainView: () ->
     @feedView.model = @listView.repos()
@@ -34,6 +35,16 @@ class GB.StatusBoardApp extends Backbone.View
   
   renderListView: () ->
     @$('#list').html @listView.render().$el
+  
+  toggleAll: () ->
+    $('#toggle-all').toggleClass('selected')
+    
+    console.log "Go! #{$('#toggle-all').hasClass('selected')}"
+    
+    if $('#toggle-all').hasClass('selected')
+      @listView.selectAll()
+    else
+      @listView.deSelectAll()
   
   seedRepos: (data) ->
     @repos.reset data

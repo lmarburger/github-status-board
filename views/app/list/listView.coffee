@@ -9,6 +9,11 @@ class GB.ListView extends Backbone.View
   initialize: () ->
     GB.ListView.__super__.initialize.apply(this, arguments)
     
+  deSelectAll: () ->
+    @selectedRepoSlugs = []
+    @collection.each (model) -> model.set('selected', false)
+    @trigger('change:selection', [])
+    
   selectAll: () ->
     @selectedRepoSlugs = @collection.pluck('slug')
     @collection.each (model) -> model.set('selected', true)

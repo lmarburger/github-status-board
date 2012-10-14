@@ -18,7 +18,8 @@ class GB.Repo extends Backbone.Model
     @on('change:selected', @fetchEventsIfSelected, @)
     
   fetchEventsIfSelected: () ->
-    if @get('selected')
+    if @get('selected') && !@fetched
+      @fetched = true
       @events.fetch()
     
   eventsUpdated: () ->
