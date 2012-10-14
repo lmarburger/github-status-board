@@ -11,7 +11,7 @@ class GB.StatusBoardApp extends Backbone.View
     @feedEvents = new GB.EventsCollection()
     
     @listView = new GB.ListView(collection: @repos)
-    @feedView = new GB.FeedView(model: @listView.repos())
+    @feedView = new GB.FeedView(model: @listView.selectedRepos())
     
     @$('#feed').html @feedView.render().$el
     
@@ -30,7 +30,7 @@ class GB.StatusBoardApp extends Backbone.View
     'click #toggle-all': 'toggleAll'
   
   renderMainView: () ->
-    @feedView.model = @listView.repos()
+    @feedView.model = @listView.selectedRepos()
     @feedView.render()
   
   renderListView: () ->
@@ -46,7 +46,7 @@ class GB.StatusBoardApp extends Backbone.View
   
   seedRepos: (data) ->
     @repos.reset data
-    @listView.selectAll()
+    @listView.selectAllWithCommits()
 
   showCommit: (e) ->
     

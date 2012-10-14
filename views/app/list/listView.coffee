@@ -14,10 +14,18 @@ class GB.ListView extends Backbone.View
     @collection.each (model) -> model.set('selected', false)
     @trigger('change:selection', [])
     
+  selectAllWithCommits: () ->
+    reposWithCommits = @collection.filter (repo) => repo.events.length > 0
+    _.each reposWithCommits, (repo) -> repo.set('selected', true)
+    window.r = reposWithCommits
+    @selectedRepoSlugs = _.map reposWithCommits, (object) -> object.get('slug')
+    console.log @selectedRepos()
+    @trigger('change:selection', @selectedRepos())
+    
   selectAll: () ->
     @selectedRepoSlugs = @collection.pluck('slug')
     @collection.each (model) -> model.set('selected', true)
-    @trigger('change:selection', @repos())
+    @trigger('change:selection', @selectedRepos())
   
   events: 
     'tap li a': 'didClickRepo'
@@ -37,12 +45,13 @@ class GB.ListView extends Backbone.View
       @selectedRepoSlugs.remove(repo.get('slug'))
     
     _.defer () =>
-      @trigger('change:selection', @repos())
+      @trigger('change:selection', @selectedRepos())
     
     e.stopPropagation()
     e.preventDefault()
     
-  repos: () ->
+  selectedRepos: () ->
+    console.log @selectedRepoSlugs
     _.filter @collection.models, (repo) => 
       @selectedRepoSlugs.indexOf(repo.get('slug')) > -1
     
