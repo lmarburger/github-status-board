@@ -74,9 +74,9 @@ h2 {
   background-image: -webkit-gradient(linear, left bottom, left top, from(#d9e0e4), to(#fbfbfd));
   background-image: -moz-linear-gradient(90deg, #d9e0e4 0%, #fbfbfd 100%);
   border-bottom: 1px solid #9ca7ad;
-  -moz-box-shadow: 0 1px 3px #d9e0e3;
-  -webkit-box-shadow: 0 1px 3px #d9e0e3;
-  box-shadow: 0 1px 3px #d9e0e3;
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   position: relative;
   z-index: 3;
 }
