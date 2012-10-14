@@ -28,7 +28,7 @@ end
 PrivateCacheBuster = Struct.new :app do
   def call env
     response = app.call env
-    response['cache-control'].sub!('private, ', '')
+    response['cache-control'].sub!('private, ', '') if response['cache-control']
     response
   end
 end
