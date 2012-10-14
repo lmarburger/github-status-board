@@ -66,7 +66,7 @@ StatusBoard = Struct.new :auth_token do
   def events_by_repo page = 1
     index = Hash.new {|h,k| h[k] = [] }
     # ensure all repos are in the payload
-    repos.each { |repo| index[repo.name] }
+    repos.each { |repo| index[repo.full_name] }
 
     events_for_authenticated_user(page).each do |event|
       index[event.repo.name] << event
