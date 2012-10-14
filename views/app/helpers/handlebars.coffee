@@ -7,3 +7,6 @@ Handlebars.registerHelper 'truncate', (text, length) ->
     "#{text.substring(0, length)}..."
   else
     text
+    
+Handlebars.registerHelper 'rawPatch', (patch) ->
+  patch
