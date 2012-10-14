@@ -43,13 +43,6 @@ NilHeaderExterminator = Struct.new :app do
   end
 end
 
-HtmlContentRequestor = Struct.new :app do
-  def call env
-    env[:request_headers]['accept'] = 'application/vnd.github.html+json'
-    app.call env
-  end
-end
-
 StatusBoard = Struct.new :auth_token do
   class << self
     attr_accessor :cache_prefix
@@ -134,7 +127,6 @@ StatusBoard = Struct.new :auth_token do
           :ignore_headers => %w[Set-Cookie X-Content-Digest]
         conn.use PrivateCacheBuster
         conn.use NilHeaderExterminator
-        conn.use HtmlContentRequestor
       }
     Octokit::Client.new options
   end
