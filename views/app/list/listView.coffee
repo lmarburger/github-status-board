@@ -7,7 +7,7 @@ class GB.ListView extends Backbone.View
   selectedRepoSlugs: []
   
   initialize: () ->
-    GB.ListView.__super__.initialize.apply(this, arguments);
+    GB.ListView.__super__.initialize.apply(this, arguments)
     
   selectAll: () ->
     @selectedRepoSlugs = @collection.pluck('slug')
@@ -48,6 +48,8 @@ class GB.ListView extends Backbone.View
   
   render: ->
     @$el.html @template()
+    
+    @$('.loading').remove() if @collection.length > 0
     
     @collection.each (repo) =>
       view = new GB.RepoListView(model : repo)
