@@ -22,6 +22,8 @@ gem 'uglifier'
 gem 'rack-cache'
 gem 'faraday_middleware'
 
+
+  gem 'airbrake'
 group :production do
   gem 'therubyracer'
 end

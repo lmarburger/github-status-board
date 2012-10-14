@@ -2,3 +2,4 @@ github_application:
   client_id: abc1234
   secret:    sekret
 session_secret: longlongrandomstring
+airbrake_api_key: longlongrandomstring

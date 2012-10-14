@@ -19,6 +19,12 @@ use Rack::Static, :urls => %w[/favicon.ico /apple-touch-icon], :root => 'public'
 StatusBoard.cache_prefix = settings.cache_folder + '/api_'
 
 configure :production do
+  require 'airbrake'
+  Airbrake.configure do |config|
+    config.api_key = settings.airbrake_api_key
+  end
+  use Airbrake::Rack
+
   use Rack::Cache,
     allow_reload: true,
     verbose:      settings.development?,
