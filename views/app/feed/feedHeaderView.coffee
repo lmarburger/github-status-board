@@ -1,4 +1,7 @@
 class GB.FeedHeaderView extends Backbone.View
+  
+  tagName: "h3"
+  
   model: GB.Event
   
   render: () ->
