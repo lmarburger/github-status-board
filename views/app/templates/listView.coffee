@@ -1,4 +1,5 @@
 GB.ListViewTemplate = "
-  <h2>My projects</h2>
+  <h2>GitHub Repos</h2>
+  <h3>Active Today</h3>
   <ul class='repos'></ul>
 "
