@@ -24,4 +24,4 @@ class GB.Repos extends Backbone.Collection
   url: "/api/repos"
   
   comparator: (repo) ->
-    repo.lastActivity()
+    - repo.lastActivity()

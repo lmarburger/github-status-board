@@ -27,9 +27,8 @@ class GB.StatusBoardApp extends Backbone.View
     @$('#list').html @listView.render().$el
   
   loadAll: (callback) ->
-    @repos.fetch()
-    # @repos.each (repo) ->
-    #   repo.fetch()
+    @repos.fetch success: () =>
+      @listView.selectAll()
     callback() if callback?
     
   showCommit: (commit) ->
