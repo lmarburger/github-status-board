@@ -12,7 +12,7 @@ class GB.FeedView extends Backbone.View
   
   initialize: () ->
     GB.FeedView.__super__.initialize.apply(this, arguments)
-  
+    
   fetchMore: () ->
     @$('.more').css('opacity', 0.4)
     App.repos.fetchEventsIfSelected () =>
@@ -23,13 +23,16 @@ class GB.FeedView extends Backbone.View
   
   addOne: (thisEvent) ->
     
+    @$('.more').remove()
+    
     if @previousEventRepoId != thisEvent.get('repo').id
       header = new GB.FeedHeaderView(model: new GB.Repo(thisEvent.get('repo')))
       header.render().$el.appendTo @$('#events')
     new GB.EventItemView(model: thisEvent).render().$el.appendTo @$('#events')
     @previousEventRepoId = thisEvent.get('repo').id
-    @$('.more').css('opacity', 1.0).remove().appendTo(@$('#events'))
-  
+    
+    @$('#events').append $('<a href="#none" class="more">more</a>')
+    
   render: ->
     
     $('#events').empty()
@@ -51,7 +54,7 @@ class GB.FeedView extends Backbone.View
     _.each events, (thisEvent) =>
       @addOne(thisEvent)
     
-    @$('#events').append $('<a href="#none" class="more">more</a>')
+    
     
     @$('.loading').remove() if @model.length > 0
     
