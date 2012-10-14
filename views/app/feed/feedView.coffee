@@ -2,25 +2,20 @@ window.GB ||= {}
 class GB.FeedView extends Backbone.View
   
   className: "events"
+    
+  events: {
+    'click a.more': 'fetchMore'
+  }
   
   template: () ->
     Handlebars.compile(GB.FeedViewTemplate)()
   
   initialize: () ->
     GB.FeedView.__super__.initialize.apply(this, arguments)
-    $('#feed').scroll (e) =>
-      @didScroll(e)
   
-  didScroll: (e) ->
-    
-    evt = e || window.event
-    
-    feedElement = $('#feed')[0]
-    maxScroll = feedElement.offsetHeight
-    scroll = feedElement.offsetHeight - feedElement.scrollTop
-        
-    if (scroll < 0)
-      App.repos.fetchMore()
+  fetchMore: () ->
+    @$('.more').hide()
+    App.repos.fetchEventsIfSelected()
     
   render: ->
     
@@ -44,6 +39,8 @@ class GB.FeedView extends Backbone.View
         header.render().$el.appendTo @$('#events')
       new GB.EventItemView(model: thisEvent).render().$el.appendTo @$('#events')
       previousEventRepoId = thisEvent.get('repo').id
+    
+    @$('#events').append $('<a href="#none" class="more">more</a>')
     
     @$('.loading').remove() if @model.length > 0
     
