@@ -158,7 +158,8 @@ namespace '/api/repos' do
   end
 
   get '/:owner/:repo/events' do |owner, repo|
-    events = status_board.events_for_repo owner, repo
+    page = params.fetch('page', 1).to_i
+    events = status_board.events_for_repo owner, repo, page
     json events
   end
 
