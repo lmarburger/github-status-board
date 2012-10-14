@@ -119,7 +119,7 @@ StatusBoard = Struct.new :auth_token do
     }
   end
 
-  def api_client options
+  def api_client options = {}
     options = options.merge oauth_token: auth_token,
       # proxy: 'http://localhost:8888',
       faraday_config_block: lambda { |conn|
