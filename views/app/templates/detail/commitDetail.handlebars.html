@@ -39,7 +39,8 @@
     <div class='comments'>
       {{#each comments}}
         <div class='comment'>
-          <img src='{{user/avatar_url}}' /> {{user/login}}: {{{markdown body}}}
+          <img src='{{user/avatar_url}}' class="avatar" />
+          <p><strong>{{user/login}}</strong> {{{markdown body}}}</p>
         </div>
       {{/each}}
     </div>
