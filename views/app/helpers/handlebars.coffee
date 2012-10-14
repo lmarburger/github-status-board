@@ -24,3 +24,11 @@ Handlebars.registerHelper 'rawPatch', (patch) ->
     
     lines.push(line)
   lines.join('\n')
+  
+Handlebars.registerHelper 'markdown', (text) ->
+  marked(text)
+
+Handlebars.registerHelper 'markless', (text) ->
+  tmp = document.createElement("DIV")
+  tmp.innerHTML = marked(text)
+  tmp.textContent||tmp.innerText

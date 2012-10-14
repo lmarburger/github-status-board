@@ -3,15 +3,18 @@ GB.CommitDetailViewTemplate = "
   
   <br />
   
+  
+  <br />
+  
   {{#if commit}}
+  
+    {{{markdown commit/message}}}
   
     {{#if committer}}
       {{#with committer}}
         <img height=20 width=20 src='{{avatar_url}}' /> <strong>{{login}}</strong> committed
       {{/with}}
     {{/if}}
-  
-    <strong>{{message}}</strong>
   
     <br />
   
@@ -28,6 +31,16 @@ GB.CommitDetailViewTemplate = "
       {{#with stats}}
         {{additions}} additions, {{deletions}} deletions.
       {{/with}}
+    {{/if}}
+    
+    {{#if comments}}}
+      <div class='comments'>
+        {{#each comments}}
+          <div class='comment'>
+            <img src='{{user/avatar_url}}' /> {{user/login}}: {{{body_html}}}
+          </div>
+        {{/each}}
+      </div>
     {{/if}}
   {{else}}
     Loading...

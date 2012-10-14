@@ -103,6 +103,7 @@ namespace '/api/repos' do
 
   get '/:owner/:repo/commits/:sha' do |owner, repo, sha|
     commit = status_board.commit owner, repo, sha
+    commit['comments'] = status_board.commit_comments owner, repo, sha
     pretty_json commit
   end
 
