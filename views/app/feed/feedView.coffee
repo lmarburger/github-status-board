@@ -1,6 +1,8 @@
 window.GB ||= {}
 class GB.FeedView extends Backbone.View
   
+  className: "events"
+  
   template: () ->
     Handlebars.compile(GB.FeedViewTemplate)()
   

@@ -21,6 +21,7 @@ class GB.StatusBoardApp extends Backbone.View
     @repos.on('reset change', @renderListView, @)
     
     @renderListView()
+    @hideDetails()
   
   events: 
     'click .sha': 'showCommit'
@@ -53,12 +54,14 @@ class GB.StatusBoardApp extends Backbone.View
     @showDetails()
     
   showDetails: () ->
-    @feedContainer.hide()
-    @detailContainer.show()
+    # @feedContainer.hide()
+    # @detailContainer.show()
+    @feedContainer.animate({left: "-100%"}, 200)
+    @detailContainer.animate({left: "0%"}, 200)
     
   hideDetails: () ->
-    @feedContainer.show()
-    @detailContainer.hide()
+    @feedContainer.animate({left: "0%"}, 200)
+    @detailContainer.animate({left: "100%"}, 200)
 
   showRepos: () ->
     ids = @listView.selectedCommitIds()

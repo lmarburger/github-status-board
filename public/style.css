@@ -30,12 +30,25 @@ html, body {
   font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
-#list, #feed, #detail {
+#list, #feed, #detail, #right {
   height: 100%;
   display: block;
   float: left;
   overflow-y: auto;
   position: relative;
+  top: 0%;
+}
+
+#right {
+  float: left;
+  width: 70%;
+  display: block;
+}
+
+#detail, #feed {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 #list {
@@ -44,11 +57,11 @@ html, body {
 }
 
 #feed {
-  width: 70%;
+  width: 100%;
 }
 
 #detail {
-  width: 70%;
+  width: 100%;
 }
 
 h2 {
@@ -199,7 +212,8 @@ h3 b {
   background-size: 29px 29px;
 }
 
-#events div {
+#events event {
+  display: block;
   background-color: #fff;
   line-height: 20px;
   border-bottom: 1px solid #ebeeef;
@@ -229,7 +243,7 @@ img.avatar {
   font-size: 13px;
 }
 
-#events li a.sha {
+#events a.sha {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
   background-image: -webkit-gradient(linear, left bottom, left top, from(#008ae0), to(#49aae9));
   background-image: -moz-linear-gradient(90deg, #008ae0 0%, #49aae9 100%);
@@ -241,13 +255,15 @@ img.avatar {
   color: #fff;
   text-decoration: none;
   border-radius: 30px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-bottom: 1px;
+  padding: 1px 8px;
   margin-right: 4px;
+  font-family: Menlo, monospace;
+  letter-spacing: -1px;
 }
 
 #events strong a {
+  position: relative;
+  top: -1px;
   color: #0088df;
   text-decoration: none;
 }
@@ -444,4 +460,8 @@ div.loading div.spinner {
     position: absolute;
   }
 
+}
+
+#right {
+  width: 70%;
 }
