@@ -72,6 +72,10 @@ StatusBoard = Struct.new :auth_token do
       }
   end
 
+  def commit owner, repo, sha
+    api_client.commit({ owner: owner, repo: repo }, sha)
+  end
+
   def repos
     api_client.repos(nil, sort: 'pushed')
   end

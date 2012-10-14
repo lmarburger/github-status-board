@@ -100,4 +100,9 @@ namespace '/api/repos' do
     events = status_board.events_for_repo owner, repo
     pretty_json events
   end
+
+  get '/:owner/:repo/commits/:sha' do |owner, repo, sha|
+    commit = status_board.commit owner, repo, sha
+    pretty_json commit
+  end
 end
