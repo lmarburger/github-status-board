@@ -1,5 +1,8 @@
 Handlebars.registerHelper 'ago', (context, options) ->
   moment(context).fromNow()
+  
+Handlebars.registerHelper 'truncate_sha', (sha) ->
+  sha.substring(0, 6)
 
 Handlebars.registerHelper 'truncate', (text, length) ->
   length ||= 30

@@ -1,7 +1,7 @@
 <img class="avatar" src="{{actor/avatar_url}}">
 <p><strong>{{actor/login}}</strong> commented on commit 
 <strong>
-  <a href='#none' class='sha' data-sha='{{payload/comment/commit_id}}' data-repo-slug='{{repo/name}}'>{{payload/comment/commit_id}}</a>
+  <a href='#none' class='sha' data-sha='{{payload/comment/commit_id}}' data-repo-slug='{{repo/name}}'>{{truncate_sha payload/comment/commit_id}}</a>
 </strong>
 </p>
 <p class="comment">{{{markless payload/comment/body}}}</p>
