@@ -14,4 +14,5 @@ class GB.EventItemView extends Backbone.View
   
   render: ->
     @$el.html @template()
+    @$el.addClass @model.get('type')
     @
