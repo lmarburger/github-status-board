@@ -56,15 +56,6 @@ StatusBoard = Struct.new :auth_token do
     @authenticated_user ||= api_client.user.login
   end
 
-      # { created_at: event.created_at,
-      #   type: event.type,
-      #   actor: event.actor.login,
-      #   repo: {
-      #     name: event.repo.name,
-      #     url:  event.repo.url
-      #   },
-      #   payload:  payload
-      # }
   def events_for_repo owner, repo
     events = api_client.repository_events(owner: owner, repo: repo)
     filter_events events
@@ -73,12 +64,17 @@ StatusBoard = Struct.new :auth_token do
   # [{ slug: 'railsrumble/r12-team-184', events: [{...}] },
   #  { slug: 'troy/txlogic', events: [{...}] }]
   def events_by_repo page = 1
-    events = events_for_authenticated_user(page).
-      each_with_object(Hash.new([])) {|event, grouped|
-        grouped[event.repo.name] += [event]
-      }.map {|slug, events|
-        { slug: slug, events: events }
-      }
+    index = Hash.new {|h,k| h[k] = [] }
+    # ensure all repos are in the payload
+    repos.each { |repo| index[repo.name] }
+
+    events_for_authenticated_user(page).each do |event|
+      index[event.repo.name] << event
+    end
+
+    index.map { |slug, events|
+      { slug: slug, events: events }
+    }
   end
 
   # user.login is ripe for storing in a cookie
