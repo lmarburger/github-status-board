@@ -1,8 +1,8 @@
 <img class="avatar" src="{{actor/avatar_url}}">
-<strong>{{actor/login}}</strong> 
-commented on commit 
+<p><strong>{{actor/login}}</strong> commented on commit 
 <strong>
   <a href='#none' class='sha' data-sha='{{payload/comment/commit_id}}' data-repo-slug='{{repo/name}}'>{{payload/comment/commit_id}}</a>
-</strong>:
-<p>{{{markless payload/comment/body}}}</p>
+</strong>
+</p>
+<p class="comment">{{{markless payload/comment/body}}}</p>
 <time>{{ago created_at}}</time>

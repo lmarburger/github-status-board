@@ -66,6 +66,23 @@ h2 {
   z-index: 3;
 }
 
+h2 a {
+  border-width: 0px 7px 0px 14px;
+  -moz-border-image: url(/images/nav.png) 0 7 0 14 repeat round;
+  -webkit-border-image: url(/images/nav.png) 0 7 0 14 repeat round;
+  -o-border-image: url(/images/nav.png) 0 7 0 14 repeat round;
+  border-image: url(/images/nav.png) 0 7 0 14 fill repeat round;
+  position: absolute;
+  height: 30px;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+  font-size: 12px;
+  line-height: 30px;
+  top: 7px;
+  left: 5px;
+  cursor: pointer;
+}
+
 h3 {
   font-size: 15px;
   color: #69757a;
@@ -167,10 +184,30 @@ h3 b {
 #events div {
   background-color: #fff;
   line-height: 20px;
+  border-bottom: 1px solid #ebeeef;
+  padding: 8px 14px 10px 56px;
+  position: relative;
+}
+
+img.avatar {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  -moz-box-shadow: 0 0 1px rgba(104, 116, 122, 0.2), 0 1px 3px rgba(104, 116, 122, 0.6);
+  -webkit-box-shadow: 0 0 1px rgba(104, 116, 122, 0.2), 0 1px 3px rgba(104, 116, 122, 0.6);
+  box-shadow: 0 0 1px rgba(104, 116, 122, 0.2), 0 1px 3px rgba(104, 116, 122, 0.6);
+  position: absolute;
+  top: 13px;
+  left: 14px;
+}
+
+#events ul {
+  list-style: none;
 }
 
 #events li {
-  color: #98a1a6;
+  color: #68747a;
   font-size: 13px;
 }
 
@@ -200,6 +237,9 @@ h3 b {
 #events time {
   color: #0088df;
   font-size: 15px;
+  position: absolute;
+  top: 9px;
+  right: 14px;
 }
 
 #events p.comment {
@@ -209,22 +249,28 @@ h3 b {
   -webkit-box-shadow: inset 0 0 4px #ffffff, 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.25);
   box-shadow: inset 0 0 4px #ffffff, 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.25);
   font-size: 13px;
-  color: #98a1a6;
+  color: #68747a;
   padding: 3px 8px;
   border-radius: 18px;
   position: relative;
   display: inline-block;
+  margin-top: 4px;
+  margin-bottom: 3px;
 }
 
 #events p.comment::after {
   content: '';
   position: absolute;
-  top: -1px;
-  left: -4px;
+  top: 0;
+  left: -5px;
   width: 12px;
   height: 13px;
   background: url(/images/comment@2x.png) no-repeat;
   background-size: 12px 13px;
+}
+
+.detail-view {
+  position: relative;
 }
 
 commit {
@@ -290,6 +336,66 @@ form.login fieldset button {
   cursor: pointer;
 }
 
+/* Spinner - 37Signals */
+
+div.spinner {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: inline-block;
+}
+
+div.spinner div {
+  width: 12%;
+  height: 26%;
+  background: #fff;
+  position: absolute;
+  left: 44.5%;
+  top: 37%;
+  opacity: 0;
+  -webkit-animation: fade 1s linear infinite;
+  -webkit-border-radius: 50px;
+  -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
+
+div.spinner div.bar1 {-webkit-transform:rotate(0deg) translate(0, -142%); -webkit-animation-delay: 0s;}    
+div.spinner div.bar2 {-webkit-transform:rotate(30deg) translate(0, -142%); -webkit-animation-delay: -0.9167s;}
+div.spinner div.bar3 {-webkit-transform:rotate(60deg) translate(0, -142%); -webkit-animation-delay: -0.833s;}
+div.spinner div.bar4 {-webkit-transform:rotate(90deg) translate(0, -142%); -webkit-animation-delay: -0.75s;}
+div.spinner div.bar5 {-webkit-transform:rotate(120deg) translate(0, -142%); -webkit-animation-delay: -0.667s;}
+div.spinner div.bar6 {-webkit-transform:rotate(150deg) translate(0, -142%); -webkit-animation-delay: -0.5833s;}
+div.spinner div.bar7 {-webkit-transform:rotate(180deg) translate(0, -142%); -webkit-animation-delay: -0.5s;}
+div.spinner div.bar8 {-webkit-transform:rotate(210deg) translate(0, -142%); -webkit-animation-delay: -0.41667s;}
+div.spinner div.bar9 {-webkit-transform:rotate(240deg) translate(0, -142%); -webkit-animation-delay: -0.333s;}
+div.spinner div.bar10 {-webkit-transform:rotate(270deg) translate(0, -142%); -webkit-animation-delay: -0.25s;}
+div.spinner div.bar11 {-webkit-transform:rotate(300deg) translate(0, -142%); -webkit-animation-delay: -0.1667s;}
+div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -webkit-animation-delay: -0.0833s;}
+
+ @-webkit-keyframes fade {
+  from {opacity: 1;}
+  to {opacity: 0.25;}
+}
+
+/* end basic spinner styles*/
+
+div.loading {
+  display: inline-block;
+  background: rgba(0,0,0,0.6);
+  -webkit-border-radius: 6px;
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  left: 50%;
+  top: 50%;
+  padding-top: 11px;
+  padding-left: 11px;
+}
+
+div.loading div.spinner {
+  width: 40px;
+  height: 40px;
+}   
+    
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
   
   /* Styles for mobile */
@@ -304,10 +410,13 @@ form.login fieldset button {
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
 
-  /* Don't forget your Retina CSS! */
-  
-  body {
-    
+  h2 a {
+    border-width: 0px 14px 0px 28px;
+    -moz-border-image: url(/images/nav@2x.png) 0 14 0 28 repeat round;
+    -webkit-border-image: url(/images/nav@2x.png) 0 14 0 28 repeat round;
+    -o-border-image: url(/images/nav@2x.png) 0 14 0 28 repeat round;
+    border-image: url(/images/nav@2x.png) 0 14 0 28 fill repeat round;
+    position: absolute;
   }
 
 }
