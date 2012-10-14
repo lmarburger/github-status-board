@@ -65,21 +65,21 @@ StatusBoard = Struct.new :auth_token do
     filter_events events
   end
 
-  # user.login is ripe for storing in a cookie
-  def events_for_authenticated_user
-    events = api_client(auto_traversal: true).received_events(api_client.user.login)
-    filter_events events
-  end
-
   # [{ slug: 'railsrumble/r12-team-184', events: [{...}] },
   #  { slug: 'troy/txlogic', events: [{...}] }]
-  def events_by_repo
-    events = events_for_authenticated_user.
+  def events_by_repo(page = 1)
+    events = events_for_authenticated_user(page).
       each_with_object(Hash.new([])) {|event, grouped|
         grouped[event.repo.name] += [event]
       }.map {|slug, events|
         { slug: slug, events: events }
       }
+  end
+
+  # user.login is ripe for storing in a cookie
+  def events_for_authenticated_user page
+    events = api_client.received_events(api_client.user.login, page: page)
+    filter_events events
   end
 
   def commit owner, repo, sha

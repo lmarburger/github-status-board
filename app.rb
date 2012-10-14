@@ -141,6 +141,10 @@ namespace '/api/repos' do
     pretty_json status_board.events_by_repo
   end
 
+  get '/:page' do |page|
+    pretty_json status_board.events_by_repo page
+  end
+
   get '/:owner/:repo/events' do |owner, repo|
     events = status_board.events_for_repo owner, repo
     pretty_json events
