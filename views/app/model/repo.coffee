@@ -14,17 +14,12 @@ class GB.Repo extends Backbone.Model
   initialize: () ->
     @events = new GB.EventsCollection(this.get('events'))
     @events.repo = @
-    @events.on('change reset', @eventsUpdated, @)
     @on('change:selected', @fetchEventsIfSelected, @)
     
   fetchEventsIfSelected: () ->
     if @get('selected')
       @events.fetch()
     
-  eventsUpdated: () ->
-    @set('public', @events.first()?.get('public'))
-    @trigger('change')
-  
   toggleSelected: () ->
     @set('selected', !@get('selected'))
   
