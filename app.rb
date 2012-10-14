@@ -57,13 +57,19 @@ helpers do
   end
 
   def json obj
-    content_type 'application/json'
-    JSON.generate obj
+    unless request.xhr?
+      # pretty output for browser and curl
+      content_type curl? ? 'application/json' : 'text/javascript'
+      JSON.pretty_generate obj
+    else
+      # compact output for Ajax
+      content_type 'application/json'
+      JSON.generate obj
+    end
   end
 
-  def pretty_json obj
-    content_type 'application/json'
-    JSON.pretty_generate obj
+  def curl?
+    request.user_agent.to_s.start_with? 'curl/'
   end
 
   def auth_process
@@ -142,36 +148,36 @@ namespace '/api/repos' do
   end
 
   get do
-    pretty_json status_board.events_by_repo
+    json status_board.events_by_repo
   end
 
   get '/:page' do |page|
-    pretty_json status_board.events_by_repo page
+    json status_board.events_by_repo page
   end
 
   get '/:owner/:repo/events' do |owner, repo|
     events = status_board.events_for_repo owner, repo
-    pretty_json events
+    json events
   end
 
   get '/:owner/:repo/commits/:sha' do |owner, repo, sha|
     commit = status_board.commit owner, repo, sha
     commit['comments'] = status_board.commit_comments owner, repo, sha
-    pretty_json commit
+    json commit
   end
 
   get '/:owner/:repo/commits/:sha/comments' do |owner, repo, sha|
     comments = status_board.commit_comments owner, repo, sha
-    pretty_json comments
+    json comments
   end
 
   get '/:owner/:repo/issues/:issue/comments' do |owner, repo, issue|
     comments = status_board.issue_comments owner, repo, issue
-    pretty_json comments
+    json comments
   end
 
   get '/:owner/:repo/pulls/:pull_request/comments' do |owner, repo, pull_request|
     comments = status_board.pull_request_comments owner, repo, pull_request
-    pretty_json comments
+    json comments
   end
 end
