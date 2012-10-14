@@ -1,6 +1,21 @@
-#!/bin/sh
+#!/bin/bash
 bundle install --without production
 
 if ! git remote | grep production >/dev/null; then
   git remote add production deploy@198.74.58.178:/home/deploy/rumble
 fi
+
+hook() {
+  file=.git/hooks/$1
+  if ! [ -x $file ]; then
+    echo "$2" > $file
+    chmod +x $file
+    echo installed $file
+  fi
+}
+
+hook post-merge "#!/bin/sh
+[ -d tmp ] && touch tmp/restart.txt"
+
+hook post-checkout "#!/bin/sh
+[ \$3 -eq 1 ] && [ -d tmp ] && touch tmp/restart.txt"
