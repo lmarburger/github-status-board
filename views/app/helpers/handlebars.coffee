@@ -15,7 +15,17 @@ Handlebars.registerHelper 'branch_name', ->
   branch = @payload.ref.replace 'refs/heads/', ''
   url = "https://github.com/#{@repo.name}/tree/#{branch}"
   "<a class='branch' href='#{url}' target='_blank'>#{branch}</a>"
-    
+
+Handlebars.registerHelper 'issue_label', ->
+  label = "##{@payload.issue.number}"
+  url = @payload.issue.html_url
+  "<a class='branch' href='#{url}' target='_blank'>#{label}</a>"
+
+Handlebars.registerHelper 'pull_request_label', ->
+  label = "##{@payload.number}"
+  url = @payload.pull_request.html_url
+  "<a class='branch' href='#{url}' target='_blank'>#{label}</a>"
+
 Handlebars.registerHelper 'rawPatch', (patch) ->
   lines = []
   
