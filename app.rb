@@ -53,7 +53,12 @@ require 'sinatra_boilerplate'
 
 helpers do
   def repo_seed_data
-    JSON.pretty_generate status_board.events_by_repo
+    data = status_board.events_by_repo
+    if settings.development?
+      JSON.pretty_generate data
+    else
+      JSON.generate data
+    end
   end
 
   def json obj
