@@ -61,20 +61,21 @@ StatusBoard = Struct.new :auth_token do
     filter_events events
   end
 
-  # [{ slug: 'railsrumble/r12-team-184', events: [{...}] },
-  #  { slug: 'troy/txlogic', events: [{...}] }]
+  # [{ slug: 'railsrumble/r12-team-184', private: true, events: [{...}] },
+  #  { slug: 'troy/txlogic', private: false, events: [{...}] }]
   def events_by_repo page = 1
-    index = Hash.new {|h,k| h[k] = [] }
     # ensure all repos are in the payload
-    repos.each { |repo| index[repo.full_name] }
+    index = repos.each_with_object({}) { |repo, index|
+      index[repo.full_name] = { slug:    repo.full_name,
+                                private: repo.private,
+                                events:  [] }
+    }
 
     events_for_authenticated_user(page).each do |event|
-      index[event.repo.name] << event
+      index[event.repo.name][:events] << event
     end
 
-    index.map { |slug, events|
-      { slug: slug, events: events }
-    }
+    index.map { |_, data| data }
   end
 
   # user.login is ripe for storing in a cookie
@@ -103,7 +104,17 @@ StatusBoard = Struct.new :auth_token do
   end
 
   def repos
+    (user_repos + organizations_repos).sort_by(&:pushed_at).reverse
+  end
+
+  def user_repos
     api_client.repos(nil, sort: 'pushed')
+  end
+
+  def organizations_repos
+    api_client.organizations.map { |organization|
+      api_client.organization_repositories(organization.login, type: 'member')
+    }.flatten
   end
 
   SUPPORTED_EVENTS = %w[
