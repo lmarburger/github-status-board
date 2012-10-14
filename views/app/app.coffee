@@ -87,3 +87,6 @@ $ ->
     email: "elliott.kember@gmail.com",
     avatar_url: "https://twimg0-a.akamaihd.net/profile_images/1042496336/bath_bigger.jpg"
   })
+
+$ ->
+  $(document.body).on 'click', 'a[href="#none"]', -> false
