@@ -15,8 +15,7 @@ class GB.ListView extends Backbone.View
     @trigger('change:selection', @repos())
   
   events: 
-    'touchstart li a': 'didClickRepo'
-    'mousedown li a': 'didClickRepo'
+    'tap li a': 'didClickRepo'
     
   didClickRepo: (e) ->
     

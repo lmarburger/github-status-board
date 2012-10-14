@@ -1,10 +1,6 @@
 window.GB ||= {}
 class GB.FeedView extends Backbone.View
   
-  # events: 
-  #   'click .sha': 'showCommit'
-  # 
-    
   template: () ->
     Handlebars.compile(GB.FeedViewTemplate)()
   
@@ -27,6 +23,15 @@ class GB.FeedView extends Backbone.View
       - (new Date(e.get('created_at')))
     )
     
+    previousEventRepoId = null
+    
     _.each events, (thisEvent) =>
+            
+      if previousEventRepoId != thisEvent.get('repo').id
+        header = new GB.FeedHeaderView(model: new GB.Repo(thisEvent.get('repo')))
+        header.render().$el.appendTo @$('#events')
+        
       new GB.EventItemView(model: thisEvent).render().$el.appendTo @$('#events')
+      
+      previousEventRepoId = thisEvent.get('repo').id
     @
