@@ -56,8 +56,9 @@ StatusBoard = Struct.new :auth_token do
     @authenticated_user ||= api_client.user.login
   end
 
-  def events_for_repo owner, repo
-    events = api_client.repository_events(owner: owner, repo: repo)
+  def events_for_repo owner, repo, page
+    events = api_client.repository_events({ owner: owner,
+                                            repo:  repo }, page: page)
     filter_events events
   end
 
