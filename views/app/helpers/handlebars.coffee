@@ -11,8 +11,10 @@ Handlebars.registerHelper 'truncate', (text, length) ->
   else
     text
 
-Handlebars.registerHelper 'branch_name', (ref) ->
-  ref.replace 'refs/heads/', ''
+Handlebars.registerHelper 'branch_name', ->
+  branch = @payload.ref.replace 'refs/heads/', ''
+  url = "https://github.com/#{@repo.name}/tree/#{branch}"
+  "<a class='branch' href='#{url}' target='_blank'>#{branch}</a>"
     
 Handlebars.registerHelper 'rawPatch', (patch) ->
   lines = []
