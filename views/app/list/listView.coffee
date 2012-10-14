@@ -19,7 +19,6 @@ class GB.ListView extends Backbone.View
     _.each reposWithCommits, (repo) -> repo.set('selected', true)
     window.r = reposWithCommits
     @selectedRepoSlugs = _.map reposWithCommits, (object) -> object.get('slug')
-    console.log @selectedRepos()
     @trigger('change:selection', @selectedRepos())
     
   selectAll: () ->
@@ -51,7 +50,6 @@ class GB.ListView extends Backbone.View
     e.preventDefault()
     
   selectedRepos: () ->
-    console.log @selectedRepoSlugs
     _.filter @collection.models, (repo) => 
       @selectedRepoSlugs.indexOf(repo.get('slug')) > -1
     
