@@ -8,6 +8,7 @@ class GB.StatusBoardApp extends Backbone.View
     
     @user = new GB.User()
     @repos = new GB.Repos()
+    @feedEvents = new GB.EventsCollection()
     
     @listView = new GB.ListView(collection: @repos)
     @feedView = new GB.FeedView(model: @listView.repos())

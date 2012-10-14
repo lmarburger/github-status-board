@@ -6,11 +6,32 @@ class GB.FeedView extends Backbone.View
   template: () ->
     Handlebars.compile(GB.FeedViewTemplate)()
   
+  initialize: () ->
+    GB.FeedView.__super__.initialize.apply(this, arguments)
+    $('#feed').scroll (e) =>
+      @didScroll(e)
+  
+  didScroll: (e) ->
+    
+    evt = e || window.event
+    
+    feedElement = $('#feed')[0]
+    maxScroll = feedElement.offsetHeight
+    scroll = feedElement.offsetHeight - feedElement.scrollTop
+    
+    # console.log "#{scroll} / #{maxScroll}"
+    
+    if (scroll < 0)
+      console.log('bottom')
+      # call function - myDiv scrolled to the bottom
+      App.repos.fetchMore()
+    
   render: ->
     
     $('#events').empty()
     
     _.each @oldModels, (model) => model.events.unbind('change reset')
+    
     @oldModels = @model
     _.each @model, (model) => model.events.on('change reset', @render, @)
     
