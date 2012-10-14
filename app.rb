@@ -49,7 +49,7 @@ configure :development do
   use BreakageYeller
 end
 
-require 'sinatra_boilerplate'
+require_relative 'lib/sinatra_boilerplate'
 
 helpers do
   def repo_seed_data
