@@ -16,6 +16,7 @@ class GB.ListView extends Backbone.View
   
   events: 
     'tap li a': 'didClickRepo'
+    'mousedown li a': 'didClickRepo'
     
   didClickRepo: (e) ->
     
