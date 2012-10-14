@@ -61,7 +61,6 @@ StatusBoard = Struct.new :auth_token do
     filter_events events
   end
 
-
   # [{ slug: 'railsrumble/r12-team-184', events: [{...}] },
   #  { slug: 'troy/txlogic', events: [{...}] }]
   def events_by_repo
@@ -93,9 +92,9 @@ StatusBoard = Struct.new :auth_token do
       # proxy: 'http://localhost:8888',
       faraday_config_block: lambda { |conn|
         conn.use FaradayMiddleware::RackCompatible, Rack::Cache::Context,
-          :metastore   => "file:#{cache_prefix}meta",
-        :entitystore => "file:#{cache_prefix}body",
-        :ignore_headers => %w[Set-Cookie X-Content-Digest]
+          :metastore      => "file:#{cache_prefix}meta",
+          :entitystore    => "file:#{cache_prefix}body",
+          :ignore_headers => %w[Set-Cookie X-Content-Digest]
         conn.use PrivateCacheBuster
       }
   end

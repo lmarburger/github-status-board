@@ -13,11 +13,10 @@ config_file 'config.yml'
 
 enable :show_exceptions
 
-set(:js_assets) { Dir['{public,views}/**/*.{js,coffee}'].sort }
+set(:js_assets)    { Dir['{public,views}/**/*.{js,coffee}'].sort }
+set(:cache_folder) { "#{settings.root}/tmp/cache" }
 
 use Rack::Static, :urls => %w[/favicon.ico /apple-touch-icon], :root => 'public'
-
-set(:cache_folder) { "#{settings.root}/tmp/cache" }
 
 StatusBoard.cache_prefix = settings.cache_folder + '/api_'
 
@@ -91,7 +90,6 @@ get '/callback' do
   redirect '/'
 end
 
-
 # API
 namespace '/api/repos' do
   get do
@@ -100,7 +98,6 @@ namespace '/api/repos' do
 
   get '/:owner/:repo/events' do |owner, repo|
     events = status_board.events_for_repo owner, repo
-
     pretty_json events
   end
 end
