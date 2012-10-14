@@ -7,11 +7,15 @@ GB.CommitDetailViewTemplate = "
   
   {{#if committer}}
     {{#with committer}}
-      <img src='{{avatar_url}}' /> {{login}}
+      <img height=20 width=20 src='{{avatar_url}}' /> <strong>{{login}}</strong> committed
     {{/with}}
   {{/if}}
   
   <strong>{{message}}</strong>
+  
+  <br />
+  <br />
+  <br />
   
   {{#if files}}
     {{#each files}}
