@@ -105,7 +105,9 @@ StatusBoard = Struct.new :auth_token do
   end
 
   def repos
-    (user_repos + organizations_repos).sort_by(&:pushed_at).reverse
+    (user_repos + organizations_repos).
+      sort_by {|repo| repo.pushed_at.to_s }.
+      reverse
   end
 
   def user_repos
