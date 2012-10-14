@@ -90,6 +90,32 @@ end
 
 # API
 namespace '/api/repos' do
+  error Octokit::Unauthorized do
+    status 401
+    'Unauthorized'
+  end
+
+  error Octokit::Forbidden do
+    status 403
+    'Forbidden'
+  end
+
+  error Octokit::NotFound do
+    status 404
+    'Not Found'
+  end
+
+  error [ Octokit::BadRequest,
+          Octokit::NotAcceptable,
+          Octokit::UnprocessableEntity,
+          Octokit::InternalServerError,
+          Octokit::NotImplemented,
+          Octokit::BadGateway,
+          Octokit::ServiceUnavailable ] do
+   status 500
+   'Error'
+  end
+
   get do
     pretty_json status_board.events_by_repo
   end
