@@ -133,10 +133,15 @@ h3 b {
   line-height: 13px;
 }
 
+#list > div {
+  height: 100%;
+}
+
 #list ul {
   padding: 0;
   font-size: 15px;
   line-height: 20px;
+  min-height: 100%;
 }
 
 #list ul li {

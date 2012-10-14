@@ -1,4 +1,4 @@
-<h2><a id="back">Activity Feed</a>Commit {{sha}}</h2>
+<h2><a id="back">Activity Feed</a>{{sha}}</h2>
 
 <div class="detail-view">
 
@@ -12,18 +12,16 @@
     {{/with}}
   {{/if}}
 
-  <br />
-
   {{#if files}}
+    <div class="diff">
     {{#each files}}
       {{filename}}:<br />
       {{#if patch }}
         <commit>{{{rawPatch patch}}}</commit>
       {{/if}}
     {{/each}}
+    </div>
   {{/if}}
-
-  <br />
 
   {{#if stats}}
     {{#with stats}}
