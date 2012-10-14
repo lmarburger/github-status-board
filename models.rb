@@ -73,7 +73,7 @@ StatusBoard = Struct.new :auth_token do
 
   # user.login is ripe for storing in a cookie
   def events_for_authenticated_user
-    events = api_client.received_events(api_client.user.login)
+    events = api_client(auto_traversal: true).received_events(api_client.user.login)
     filter_events events
   end
 
@@ -119,8 +119,8 @@ StatusBoard = Struct.new :auth_token do
     }
   end
 
-  def api_client
-    Octokit::Client.new oauth_token: auth_token,
+  def api_client options
+    options = options.merge oauth_token: auth_token,
       # proxy: 'http://localhost:8888',
       faraday_config_block: lambda { |conn|
         conn.use FaradayMiddleware::RackCompatible, Rack::Cache::Context,
@@ -131,5 +131,6 @@ StatusBoard = Struct.new :auth_token do
         conn.use NilHeaderExterminator
         conn.use HtmlContentRequestor
       }
+    Octokit::Client.new options
   end
 end
