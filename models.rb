@@ -73,6 +73,11 @@ StatusBoard = Struct.new :auth_token do
     }
 
     events_for_authenticated_user(page).each do |event|
+      unless index[event.repo.name]
+        index[event.repo.name] = { slug:    event.repo.name,
+                                   private: true, # <- WRONG! :(
+                                   events:  [] }
+      end
       index[event.repo.name][:events] << event
     end
 
