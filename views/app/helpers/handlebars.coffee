@@ -10,6 +10,9 @@ Handlebars.registerHelper 'truncate', (text, length) ->
     "#{text.substring(0, length)}..."
   else
     text
+
+Handlebars.registerHelper 'branch_name', (ref) ->
+  ref.replace 'refs/heads/', ''
     
 Handlebars.registerHelper 'rawPatch', (patch) ->
   lines = []

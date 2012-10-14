@@ -1,6 +1,6 @@
 <img class="avatar" src="{{actor/avatar_url}}">
 
-<p><strong>{{actor/login}}</strong> pushed {{payload/size}} commits to {{payload/ref}}</p>
+<p><strong>{{actor/login}}</strong> pushed {{payload/size}} commits to {{branch_name payload/ref}}</p>
 <ul class='commits'>
   {{#each payload/commits}}
   {{repo/name}}
