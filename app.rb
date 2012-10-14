@@ -10,8 +10,6 @@ require_relative 'models'
 
 config_file 'config.yml'
 
-enable :show_exceptions
-
 set(:js_assets)    { Dir['{public,views}/**/*.{js,coffee}'].sort }
 set(:cache_folder) { "#{settings.root}/tmp/cache" }
 set :sessions,     { expire_after: 60 * 60 * 24 * 7 }
