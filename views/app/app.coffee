@@ -29,19 +29,21 @@ class GB.StatusBoardApp extends Backbone.View
     'click #back': 'hideDetails'
     'click #toggle-all': 'toggleAll'
   
-  renderMainView: () ->
-    @feedView.model = @listView.selectedRepos()
+  renderMainView: (selectedRepos) ->
+    @feedView.model = selectedRepos
+    @updateToggleStatus()
     @feedView.render()
   
   renderListView: () ->
     @$('#list').html @listView.render().$el
+    @updateToggleStatus()
+
+  updateToggleStatus: () ->
+    $('#toggle-all').toggleClass('selected', @feedView.model?.length)
   
   toggleAll: () ->
-    $('#toggle-all').toggleClass('selected')
-        
     if $('#toggle-all').hasClass('selected')
-      @listView.selectAll()
-    else
+      $('#toggle-all').removeClass('selected')
       @listView.deSelectAll()
   
   seedRepos: (data) ->
