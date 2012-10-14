@@ -1,5 +1,7 @@
 class GB.EventItemView extends Backbone.View
   
+  tagName: "event"
+  
   template: ->
     
     type = @model.get('type')

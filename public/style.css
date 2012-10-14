@@ -200,7 +200,8 @@ h3 b {
   background-size: 29px 29px;
 }
 
-#events div {
+#events event {
+  display: block;
   background-color: #fff;
   line-height: 20px;
   border-bottom: 1px solid #ebeeef;
