@@ -123,6 +123,11 @@ get '/callback' do
   redirect '/'
 end
 
+get '/logout' do
+  session.delete :token
+  redirect '/'
+end
+
 get '/templates.js' do
   templates = Dir['views/**/*.handlebars.html']
   last_modified templates.map {|f| File.mtime f }.max
