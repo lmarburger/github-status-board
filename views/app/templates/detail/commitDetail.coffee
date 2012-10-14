@@ -5,31 +5,36 @@ GB.CommitDetailViewTemplate = "
   <br />
   <br />
   
-  {{#if committer}}
-    {{#with committer}}
-      <img height=20 width=20 src='{{avatar_url}}' /> <strong>{{login}}</strong> committed
-    {{/with}}
-  {{/if}}
+  {{#if commit}}
   
-  <strong>{{message}}</strong>
+    {{#if committer}}
+      {{#with committer}}
+        <img height=20 width=20 src='{{avatar_url}}' /> <strong>{{login}}</strong> committed
+      {{/with}}
+    {{/if}}
   
-  <br />
-  <br />
-  <br />
+    <strong>{{message}}</strong>
   
-  {{#if files}}
-    {{#each files}}
-      {{filename}}:<br />
-      <commit>{{{rawPatch patch}}}</commit>
-    {{/each}}
-  {{/if}}
-  <br />
-  <br />
-  <br />
+    <br />
+    <br />
+    <br />
   
-  {{#if stats}}
-    {{#with stats}}
-      {{additions}} additions, {{deletions}} deletions.
-    {{/with}}
+    {{#if files}}
+      {{#each files}}
+        {{filename}}:<br />
+        <commit>{{{rawPatch patch}}}</commit>
+      {{/each}}
+    {{/if}}
+    <br />
+    <br />
+    <br />
+  
+    {{#if stats}}
+      {{#with stats}}
+        {{additions}} additions, {{deletions}} deletions.
+      {{/with}}
+    {{/if}}
+  {{else}}
+    Loading...
   {{/if}}
 "
