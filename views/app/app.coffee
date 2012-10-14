@@ -34,11 +34,10 @@ class GB.StatusBoardApp extends Backbone.View
   renderListView: () ->
     @$('#list').html @listView.render().$el
   
-  loadAll: (callback) ->
-    @repos.fetch success: () =>
-      @listView.selectAll()
-    callback?()
-    
+  seedRepos: (data) ->
+    @repos.reset data
+    @listView.selectAll()
+
   showCommit: (e) ->
     
     element = $(e.target).closest('a.sha')
@@ -68,13 +67,11 @@ class GB.StatusBoardApp extends Backbone.View
     
 $ -> 
   window.App = new GB.StatusBoardApp()
-  
-  window.App.loadAll () ->
+  window.App.seedRepos window.repoSeedData
     
-    # Dummy stuff until we have an API.
-  
-    window.App.user.set({
-      name: "Elliott Kember",
-      email: "elliott.kember@gmail.com",
-      avatar_url: "https://twimg0-a.akamaihd.net/profile_images/1042496336/bath_bigger.jpg"
-    })
+  # Dummy stuff until we have an API.
+  window.App.user.set({
+    name: "Elliott Kember",
+    email: "elliott.kember@gmail.com",
+    avatar_url: "https://twimg0-a.akamaihd.net/profile_images/1042496336/bath_bigger.jpg"
+  })
