@@ -2,6 +2,7 @@ require 'forwardable'
 require 'oauth2'
 require 'faraday_middleware'
 require 'octokit'
+require 'active_support/cache'
 
 # handles OAuth process
 AuthProcess = Struct.new :settings do
@@ -42,13 +43,6 @@ NilHeaderExterminator = Struct.new :app do
   end
 end
 
-HtmlContentRequestor = Struct.new :app do
-  def call env
-    env[:request_headers]['accept'] = 'application/vnd.github.html+json'
-    app.call env
-  end
-end
-
 StatusBoard = Struct.new :auth_token do
   class << self
     attr_accessor :cache_prefix
@@ -71,21 +65,21 @@ StatusBoard = Struct.new :auth_token do
     filter_events events
   end
 
-  # user.login is ripe for storing in a cookie
-  def events_for_authenticated_user
-    events = api_client(auto_traversal: true).received_events(api_client.user.login)
-    filter_events events
-  end
-
   # [{ slug: 'railsrumble/r12-team-184', events: [{...}] },
   #  { slug: 'troy/txlogic', events: [{...}] }]
-  def events_by_repo
-    events = events_for_authenticated_user.
+  def events_by_repo(page = 1)
+    events = events_for_authenticated_user(page).
       each_with_object(Hash.new([])) {|event, grouped|
         grouped[event.repo.name] += [event]
       }.map {|slug, events|
         { slug: slug, events: events }
       }
+  end
+
+  # user.login is ripe for storing in a cookie
+  def events_for_authenticated_user page
+    events = api_client.received_events(api_client.user.login, page: page)
+    filter_events events
   end
 
   def commit owner, repo, sha
@@ -123,13 +117,16 @@ StatusBoard = Struct.new :auth_token do
     options = options.merge oauth_token: auth_token,
       # proxy: 'http://localhost:8888',
       faraday_config_block: lambda { |conn|
+        conn.response :caching do
+          # <3 Elliott
+          ActiveSupport::Cache::FileStore.new "#{cache_prefix}dumb", expires_in: 60 * 30
+        end
         conn.use FaradayMiddleware::RackCompatible, Rack::Cache::Context,
           :metastore      => "file:#{cache_prefix}meta",
           :entitystore    => "file:#{cache_prefix}body",
           :ignore_headers => %w[Set-Cookie X-Content-Digest]
         conn.use PrivateCacheBuster
         conn.use NilHeaderExterminator
-        conn.use HtmlContentRequestor
       }
     Octokit::Client.new options
   end

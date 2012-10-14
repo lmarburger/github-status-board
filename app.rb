@@ -124,17 +124,9 @@ namespace '/api/repos' do
     'Unauthorized'
   end
 
-  error Octokit::Forbidden do
-    status 403
-    'Forbidden'
-  end
-
-  error Octokit::NotFound do
-    status 404
-    'Not Found'
-  end
-
   error [ Octokit::BadRequest,
+          Octokit::Forbidden,
+          Octokit::NotFound,
           Octokit::NotAcceptable,
           Octokit::UnprocessableEntity,
           Octokit::InternalServerError,
@@ -142,11 +134,15 @@ namespace '/api/repos' do
           Octokit::BadGateway,
           Octokit::ServiceUnavailable ] do
    status 500
-   'Error'
+   'OctoError'
   end
 
   get do
     pretty_json status_board.events_by_repo
+  end
+
+  get '/:page' do |page|
+    pretty_json status_board.events_by_repo page
   end
 
   get '/:owner/:repo/events' do |owner, repo|

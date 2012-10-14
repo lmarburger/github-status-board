@@ -38,7 +38,6 @@ class GB.ListView extends Backbone.View
     e.stopPropagation()
     e.preventDefault()
     
-    
   repos: () ->
     _.filter @collection.models, (repo) => 
       @selectedRepoSlugs.indexOf(repo.get('slug')) > -1
@@ -49,10 +48,8 @@ class GB.ListView extends Backbone.View
   render: ->
     @$el.html @template()
     
-    @$('.loading').remove() if @collection.length > 0
+    $('.loading').remove() if @collection.length > 0
     
     @collection.each (repo) =>
-      view = new GB.RepoListView(model : repo)
-      view.render().$el.appendTo @$("ul")
-      
+      new GB.RepoListView(model : repo).render().$el.appendTo @$("ul")
     @
