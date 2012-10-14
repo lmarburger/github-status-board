@@ -33,11 +33,12 @@
     <div class='comments'>
       {{#each comments}}
         <div class='comment'>
-          <img src='{{user/avatar_url}}' /> {{user/login}}: {{{body_html}}}
+          <img src='{{user/avatar_url}}' /> {{user/login}}: {{{markdown body}}}
         </div>
       {{/each}}
     </div>
   {{/if}}
+  
 {{else}}
   <div class="loading">
     <div class="spinner">
