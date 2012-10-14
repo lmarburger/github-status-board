@@ -46,6 +46,7 @@ class GB.StatusBoardApp extends Backbone.View
       _.each event.get('payload').commits, (commit) =>
         if commit.sha == sha
           commit = new GB.Commit(commit)
+          commit.set('repo', repo)
           commitView = new GB.CommitDetailView(model: commit)
           @detailContainer.html commitView.render().$el
     
