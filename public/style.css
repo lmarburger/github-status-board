@@ -98,6 +98,11 @@ h2 {
   cursor: pointer;
 }
 
+#detail h2, #feed h2{
+  position: fixed;
+  width: 100%;
+}
+
 h3 {
   font-size: 15px;
   color: #69757a;
@@ -126,6 +131,7 @@ h3 {
 #events {
   height: 100%;
   overflow-y: auto;
+  padding-top: 43px;
 }
 
 #events h3 {
