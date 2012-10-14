@@ -1,5 +1,7 @@
 class GB.Repo extends Backbone.Model
   @selected = false
+  
+  idAttribute: 'slug'
   url: -> ['api', 'repos', @get('slug')].join('/')
   
   lastActivity: () ->
@@ -33,5 +35,6 @@ class GB.Repos extends Backbone.Collection
     @currentPage += 1
     @fetch({
       data: {page: @currentPage}
-      procesData: true
+      processData: true
+      add: true
     })

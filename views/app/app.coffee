@@ -19,7 +19,7 @@ class GB.StatusBoardApp extends Backbone.View
     @detailContainer = @$('#detail')
     
     @listView.on('change:selection', @renderMainView, @)
-    @repos.on('reset change', @renderListView, @)
+    @repos.on('reset change add', @renderListView, @)
     
     @renderListView()
     @hideDetails()
