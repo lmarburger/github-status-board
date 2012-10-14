@@ -52,6 +52,10 @@ StatusBoard = Struct.new :auth_token do
   extend Forwardable
   def_delegators :'self.class', :cache_prefix
 
+  def authenticated_user
+    @authenticated_user ||= api_client.user.login
+  end
+
       # { created_at: event.created_at,
       #   type: event.type,
       #   actor: event.actor.login,
@@ -79,7 +83,7 @@ StatusBoard = Struct.new :auth_token do
 
   # user.login is ripe for storing in a cookie
   def events_for_authenticated_user page
-    events = api_client.received_events(api_client.user.login, page: page)
+    events = api_client.received_events(authenticated_user, page: page)
     filter_events events
   end
 
@@ -113,11 +117,16 @@ StatusBoard = Struct.new :auth_token do
 
   def filter_events events
     events.select { |event|
+      next if own_event? event
       if create_branch_event? event
         convert_branch_event_to_push event
       end
       SUPPORTED_EVENTS.include? event.type
     }
+  end
+
+  def own_event? event
+    event.actor.login == authenticated_user
   end
 
   def create_branch_event? event
