@@ -17,6 +17,8 @@ class GB.FeedView extends Backbone.View
     @$('.more').css('opacity', 0.4)
     App.repos.fetchEventsIfSelected () =>
       @render()
+      objDiv = @$('#events')[0]
+      objDiv.scrollTop = objDiv.scrollHeight
   
   addOne: (thisEvent) ->
     
