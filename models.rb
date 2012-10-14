@@ -28,8 +28,17 @@ end
 PrivateCacheBuster = Struct.new :app do
   def call env
     response = app.call env
-    response['cache-control'].sub!('private, ', '')
+    response['cache-control'].sub!('private, ', '') if response['cache-control']
     response
+  end
+end
+
+# removes nil request headers created by bug
+# https://github.com/pengwynn/faraday_middleware/pull/35
+NilHeaderExterminator = Struct.new :app do
+  def call env
+    env[:request_headers].reject! { |name, value| value.nil? }
+    app.call env
   end
 end
 
@@ -112,6 +121,7 @@ StatusBoard = Struct.new :auth_token do
           :entitystore    => "file:#{cache_prefix}body",
           :ignore_headers => %w[Set-Cookie X-Content-Digest]
         conn.use PrivateCacheBuster
+        conn.use NilHeaderExterminator
       }
   end
 end

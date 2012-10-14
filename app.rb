@@ -118,7 +118,6 @@ namespace '/api/repos' do
 
   get '/:owner/:repo/pulls/:pull_request/comments' do |owner, repo, pull_request|
     comments = status_board.pull_request_comments owner, repo, pull_request
-    raise comments.inspect
     pretty_json comments
   end
 end
