@@ -19,6 +19,8 @@ class GB.StatusBoardApp extends Backbone.View
     
     @listView.on('change:selection', @renderMainView, @)
     @repos.on('reset change', @renderListView, @)
+    
+    @renderListView()
   
   events: 
     'click .sha': 'showCommit'
