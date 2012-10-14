@@ -30,15 +30,18 @@ class GB.Repos extends Backbone.Collection
   comparator: (repo) ->
     - repo.lastActivity()
     
-  fetchEventsIfSelected: () ->
+  fetchEventsIfSelected: (callback) ->
+    console.log 'fetchEventsIfSelected'
     _.each @where(selected: true), (repo) ->
-      repo.events.fetchMore()
+      repo.events.fetchMore () =>
+        callback?()
     
   currentPage: 0
-  fetchMore: () ->
+  fetchMore: (callback) ->
     @currentPage += 1
     @fetch({
       data: {page: @currentPage}
       processData: true
       add: true
+      success: callback
     })
