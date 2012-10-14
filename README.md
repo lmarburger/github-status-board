@@ -12,3 +12,5 @@ You might want to:
 
 * Pick either Compass or Bourbon and remove the other from bundle
 * Remove Haml from bundle if not using it
+
+This line unintentionally left blank.
