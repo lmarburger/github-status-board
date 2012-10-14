@@ -103,8 +103,12 @@ get '/callback' do
 end
 
 get '/templates.js' do
+  templates = Dir['views/**/*.handlebars.html']
+  last_modified templates.map {|f| File.mtime f }.max
+
   content_type 'application/javascript'
-  Dir['views/**/*.handlebars.html'].map do |file|
+
+  templates.map do |file|
     name = File.basename file, '.handlebars.html'
     name.sub!(/^[a-z]/) { $&.upcase }
     name << 'Template' unless name.end_with? 'Template'
