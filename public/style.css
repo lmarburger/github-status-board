@@ -34,7 +34,7 @@ html, body {
   height: 100%;
   display: block;
   float: left;
-  overflow-y: auto;
+/*  overflow-y: auto;*/
   position: relative;
   top: 0%;
 }
@@ -119,6 +119,15 @@ h3 {
   line-height: 18px;
 }
 
+.events {
+  height: 100%;
+}
+
+#events {
+  height: 100%;
+  overflow-y: auto;
+}
+
 #events h3 {
   font-weight: normal;
   font-style: normal;
@@ -156,7 +165,8 @@ h3 b {
   padding: 0;
   font-size: 15px;
   line-height: 20px;
-  min-height: 100%;
+  height: 100%;
+  padding-top: 40px;
 }
 
 #list ul li {
@@ -195,6 +205,15 @@ h3 b {
   right: 14px;
   background-image: url(/images/select-empty@2x.png);
   background-size: 29px 29px;
+}
+
+#list h2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 70%;
+  width: 30%;
+  border-right: 1px solid #000;
 }
 
 #list h2 a {
@@ -321,6 +340,8 @@ img.avatar {
   right: 0;
   left: 0;
   padding-top: 43px;
+  overflow-y: auto;
+  height: 100%;
 }
 
 .detail-view .head {
@@ -363,6 +384,8 @@ img.avatar {
   border: 1px solid #d8dfe4;
   border-radius: 6px;
   margin-bottom: 24px;
+  max-height: 70%;
+  overflow-y: auto;
 }
 
 .diff strong {
