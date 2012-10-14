@@ -21,7 +21,9 @@ GB.CommitDetailViewTemplate = "
     {{#if files}}
       {{#each files}}
         {{filename}}:<br />
-        <commit>{{{rawPatch patch}}}</commit>
+        {{#if patch }}
+          <commit>{{{rawPatch patch}}}</commit>
+        {{/if}}
       {{/each}}
     {{/if}}
 

@@ -10,6 +10,7 @@ Handlebars.registerHelper 'truncate', (text, length) ->
     
 Handlebars.registerHelper 'rawPatch', (patch) ->
   lines = []
+  
   _.each patch.split("\n"), (line) ->
     
     first = line[0]
