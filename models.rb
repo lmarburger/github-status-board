@@ -3,6 +3,7 @@ require 'oauth2'
 require 'faraday_middleware'
 require 'octokit'
 require 'active_support/cache'
+require 'time'
 
 # handles OAuth process
 AuthProcess = Struct.new :settings do
@@ -86,6 +87,10 @@ StatusBoard = Struct.new :auth_token do
     api_client.commit({ owner: owner, repo: repo }, sha)
   end
 
+  def commits repo, branch
+    api_client.commits repo, branch
+  end
+
   def commit_comments owner, repo, sha
     api_client.commit_comments({ owner: owner, repo: repo }, sha)
   end
@@ -109,7 +114,52 @@ StatusBoard = Struct.new :auth_token do
 
   def filter_events events
     events.select { |event|
+      if create_branch_event? event
+        convert_branch_event_to_push event
+        warn event.payload.inspect
+      end
       SUPPORTED_EVENTS.include? event.type
+    }
+  end
+
+  def create_branch_event? event
+    event.type == 'CreateEvent' and event.payload['ref_type'] == 'branch'
+  end
+
+  def convert_branch_event_to_push event
+    branch = event.payload['ref']
+    begin
+      comparison = compare event.repo['name'], event.payload['master_branch'], branch
+    rescue
+      # ignore
+    else
+      event.type = 'PushEvent'
+      created = Time.parse event.created_at
+      commits = comparison.commits.map {|c|
+        if Time.parse(c['commit']['committer']['date']) < created
+          push_commit_from_commit(c)
+        end
+      }.compact
+
+      head = commits.any? && commits.first[:sha]
+
+      event.payload = {
+        ref: "refs/heads/#{branch}",
+        before: "0" * 40,
+        head: head,
+        commits: commits,
+        size: commits.size,
+        push_id: 0
+      }
+    end
+  end
+
+  def push_commit_from_commit commit
+    { sha: commit['sha'],
+      url: commit['url'],
+      message: commit['commit']['message'],
+      distinct: false,
+      author: commit['commit']['author']
     }
   end
 
