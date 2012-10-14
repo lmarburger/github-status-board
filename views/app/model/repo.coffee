@@ -30,6 +30,10 @@ class GB.Repos extends Backbone.Collection
   comparator: (repo) ->
     - repo.lastActivity()
     
+  fetchEventsIfSelected: () ->
+    _.each @where(selected: true), (repo) ->
+      repo.events.fetchMore()
+    
   currentPage: 0
   fetchMore: () ->
     @currentPage += 1
