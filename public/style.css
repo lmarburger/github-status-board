@@ -634,3 +634,7 @@ div.loading div.spinner {
 #right {
   width: 70%;
 }
+
+#feed, #detail {
+  -webkit-transition: ease all 0.6s;
+}

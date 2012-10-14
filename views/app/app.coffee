@@ -65,12 +65,12 @@ class GB.StatusBoardApp extends Backbone.View
   showDetails: () ->
     # @feedContainer.hide()
     # @detailContainer.show()
-    @feedContainer.animate({left: "-100%"}, 200)
-    @detailContainer.animate({left: "0%"}, 200)
+    @feedContainer.css({left: "-100%"})
+    @detailContainer.css({left: "0%"})
     
   hideDetails: () ->
-    @feedContainer.animate({left: "0%"}, 200)
-    @detailContainer.animate({left: "100%"}, 200)
+    @feedContainer.css({left: "0%"})
+    @detailContainer.css({left: "100%"})
 
   showRepos: () ->
     ids = @listView.selectedCommitIds()
