@@ -66,7 +66,7 @@ StatusBoard = Struct.new :auth_token do
 
   # user.login is ripe for storing in a cookie
   def events_for_authenticated_user
-    events = api_client.user_events(api_client.user.login)
+    events = api_client.received_events(api_client.user.login)
     filter_events events
   end
 
