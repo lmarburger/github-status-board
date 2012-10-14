@@ -1,4 +1,4 @@
-class GB.Router extends Backbone.router
+class GB.Router extends Backbone.Router
   
   routes: {
     "": "home"
