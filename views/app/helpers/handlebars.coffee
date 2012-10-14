@@ -47,7 +47,8 @@ Handlebars.registerHelper 'rawPatch', (patch) ->
 Handlebars.registerHelper 'markdown', (text) ->
   marked(text)
 
-Handlebars.registerHelper 'markless', (text) ->
+Handlebars.registerHelper 'markless', (text, limit) ->
+  text = text.substring(0, limit) if limit and text.length > limit
   tmp = document.createElement("DIV")
   tmp.innerHTML = marked(text)
   tmp.textContent||tmp.innerText

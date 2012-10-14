@@ -4,5 +4,5 @@
   <a href='#none' class='sha' data-sha='{{payload/comment/commit_id}}' data-repo-slug='{{repo/name}}'>{{truncate_sha payload/comment/commit_id}}</a>
 </strong>
 </p>
-<p class="comment">{{{markless payload/comment/body}}}</p>
+<p class="comment">{{{markless payload/comment/body 140}}}</p>
 <time>{{ago created_at}}</time>
