@@ -12,8 +12,9 @@ class GB.StatusBoardApp extends Backbone.View
     @listView = new GB.ListView(collection: @repos)
     @feedView = new GB.FeedView(model: @listView.repos())
     
-    @$('#detail').html @feedView.render().$el
+    @$('#feed').html @feedView.render().$el
     
+    @feedContainer = @$('#feed')
     @detailContainer = @$('#detail')
     
     @listView.on('change:selection', @renderMainView, @)
@@ -29,10 +30,10 @@ class GB.StatusBoardApp extends Backbone.View
   loadAll: (callback) ->
     @repos.fetch success: () =>
       @listView.selectAll()
-    callback() if callback?
+    callback?()
     
-  showCommit: (commit) ->
-    commitView = GB.CommitView(model: commit)
+  showCommit: (repo, commit) ->
+    commitView = new GB.CommitDetailView(model: commit)
     @detailContainer.html commitView.render().$el
     
   showRepos: () ->

@@ -44,7 +44,7 @@ html, body {
   height: 100%;
 }
 
-#list, #detail {
+#list, #feed, #detail {
   height: 100%;
   display: block;
   float: left;
@@ -56,9 +56,13 @@ html, body {
   width: 30%;
 }
 
-#detail {
+#feed {
   background: rgba(0,0,0,0.2);
-  width: 70%;
+  width: 30%;
+}
+
+#detail {
+  width: 30%;
 }
 
 h2 {

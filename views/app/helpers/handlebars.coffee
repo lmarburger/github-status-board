@@ -1,10 +1,9 @@
 Handlebars.registerHelper 'ago', (context, options) ->
   moment(context).fromNow()
-  
-Handlebars.registerHelper 'truncate', (context, length) ->
+
+Handlebars.registerHelper 'truncate', (text, length) ->
   length ||= 30
-  console.log length
-  if context.length > length - 3
-    context.substring(0, length)+"..."
+  if text.length > length - 3
+    "#{text.substring(0, length)}..."
   else
-    context
+    text
