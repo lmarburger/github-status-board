@@ -1,4 +1,5 @@
 class GB.Repo extends Backbone.Model
+  
   @selected = false
   
   idAttribute: 'slug'
@@ -14,12 +15,18 @@ class GB.Repo extends Backbone.Model
     @events = new GB.EventsCollection(this.get('events'))
     @events.repo = @
     @events.on('change reset', @eventsUpdated, @)
+    @on('change:selected', @fetchEventsIfSelected, @)
+    
+  fetchEventsIfSelected: () ->
+    if @get('selected')
+      @events.fetch()
     
   eventsUpdated: () ->
     @trigger('change')
   
   toggleSelected: () ->
     @set('selected', !@get('selected'))
+
     
 
   
