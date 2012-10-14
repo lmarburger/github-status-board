@@ -1,5 +1,7 @@
 class GB.Repo extends Backbone.Model
   @selected = false
+  
+  idAttribute: 'slug'
   url: -> ['api', 'repos', @get('slug')].join('/')
   
   lastActivity: () ->
@@ -18,6 +20,8 @@ class GB.Repo extends Backbone.Model
   
   toggleSelected: () ->
     @set('selected', !@get('selected'))
+    
+
   
 class GB.Repos extends Backbone.Collection  
   model: GB.Repo
@@ -25,3 +29,12 @@ class GB.Repos extends Backbone.Collection
   
   comparator: (repo) ->
     - repo.lastActivity()
+    
+  currentPage: 0
+  fetchMore: () ->
+    @currentPage += 1
+    @fetch({
+      data: {page: @currentPage}
+      processData: true
+      add: true
+    })

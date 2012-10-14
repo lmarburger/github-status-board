@@ -43,6 +43,7 @@ html, body {
   float: left;
   width: 70%;
   display: block;
+  overflow: hidden;
 }
 
 #detail, #feed {
