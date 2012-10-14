@@ -29,7 +29,6 @@ class GB.ListView extends Backbone.View
     slug = element.data('repo-slug')
     repo = @collection.where(slug: slug)[0]
 
-    console.log 'toggleSelected'
     repo.toggleSelected()
     
     if repo.get('selected')

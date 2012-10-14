@@ -5,6 +5,5 @@ class GB.Commit extends Backbone.Model
     
   initialize: () ->
     window.commit = @
-    console.log @
   
   

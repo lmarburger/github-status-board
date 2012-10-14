@@ -1,7 +1,6 @@
 <img class="avatar" src="{{actor/avatar_url}}">
-<p><strong>{{actor/login}}</strong> commented on Issue \#{{payload/issue/id}}</p>
+<p><strong>{{actor/login}}</strong> commented on Issue #{{payload/issue/id}}</p>
 
-<p class="comment">{{truncate payload/issue/body 150}}</p>
 <p class="comment">{{truncate payload/comment/body 150}}</p>
 
 <time>{{ago created_at}}</time>
