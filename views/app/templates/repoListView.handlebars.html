@@ -1,1 +1,6 @@
-<a><span>{{slug}}</span></a>
+<a>
+  <span>{{slug}}</span>
+  <small class="{{#if private}}private{{else}}public{{/if}}">
+    {{#if private}}private{{else}}public{{/if}}
+  </small>
+</a>

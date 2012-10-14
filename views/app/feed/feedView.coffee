@@ -18,12 +18,8 @@ class GB.FeedView extends Backbone.View
     feedElement = $('#feed')[0]
     maxScroll = feedElement.offsetHeight
     scroll = feedElement.offsetHeight - feedElement.scrollTop
-    
-    # console.log "#{scroll} / #{maxScroll}"
-    
+        
     if (scroll < 0)
-      console.log('bottom')
-      # call function - myDiv scrolled to the bottom
       App.repos.fetchMore()
     
   render: ->

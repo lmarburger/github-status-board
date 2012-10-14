@@ -38,9 +38,7 @@ class GB.StatusBoardApp extends Backbone.View
   
   toggleAll: () ->
     $('#toggle-all').toggleClass('selected')
-    
-    console.log "Go! #{$('#toggle-all').hasClass('selected')}"
-    
+        
     if $('#toggle-all').hasClass('selected')
       @listView.selectAll()
     else
