@@ -80,6 +80,14 @@ StatusBoard = Struct.new :auth_token do
     api_client.commit_comments({ owner: owner, repo: repo }, sha)
   end
 
+  def issue_comments owner, repo, issue
+    api_client.issue_comments({ owner: owner, repo: repo }, issue)
+  end
+
+  def pull_request_comments owner, repo, pull_request
+    api_client.pull_request_comments({ owner: owner, repo: repo }, pull_request)
+  end
+
   def repos
     api_client.repos(nil, sort: 'pushed')
   end

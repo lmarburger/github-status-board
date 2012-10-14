@@ -110,4 +110,15 @@ namespace '/api/repos' do
     comments = status_board.commit_comments owner, repo, sha
     pretty_json comments
   end
+
+  get '/:owner/:repo/issues/:issue/comments' do |owner, repo, issue|
+    comments = status_board.issue_comments owner, repo, issue
+    pretty_json comments
+  end
+
+  get '/:owner/:repo/pulls/:pull_request/comments' do |owner, repo, pull_request|
+    comments = status_board.pull_request_comments owner, repo, pull_request
+    raise comments.inspect
+    pretty_json comments
+  end
 end
