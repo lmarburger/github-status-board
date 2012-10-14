@@ -196,6 +196,37 @@ h3 b {
   color: #0088df;
 }
 
+#list ul li small {
+  display: block;
+  color: #98a1a6;
+  padding-left: 18px;
+}
+
+#list ul li small.public {
+  background: url(/images/icon-public@2x.png) no-repeat 0 4px;
+  background-size: 13px 13px;
+}
+
+#list ul li small.private { 
+  background: url(/images/icon-private@2x.png) no-repeat 0 4px;
+  background-size: 13px 13px;
+}
+
+#list ul li.selected small.public {
+  background: url(/images/icon-public-active@2x.png) no-repeat 0 4px;
+  background-size: 13px 13px;
+}
+
+#list ul li.selected small.private { 
+  background: url(/images/icon-private-active@2x.png) no-repeat 0 4px;
+  background-size: 13px 13px;
+}
+
+#list ul li.selected small {
+  display: block;
+  color: #0088df;
+}
+
 #list ul li a:before, #list ul li a:after {
   content: '';
   position: absolute;
