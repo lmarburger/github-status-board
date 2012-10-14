@@ -104,3 +104,20 @@ ul.commits {
     margin: 5px;
   }
 }
+
+commit {
+  span {
+    padding: 2px;
+    margin: none;
+    float: left;
+    clear: both;
+  }
+  white-space: pre;
+  font-family: monospace;
+  .plus {
+    background: rgba(0, 255, 0, 0.4);
+  }
+  .minus {
+    background: rgba(255, 0, 0, 0.4);
+  }
+}

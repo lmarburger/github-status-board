@@ -9,4 +9,18 @@ Handlebars.registerHelper 'truncate', (text, length) ->
     text
     
 Handlebars.registerHelper 'rawPatch', (patch) ->
-  patch
+  lines = []
+  _.each patch.split("\n"), (line) ->
+    
+    first = line[0]
+    
+    line = _.escape(line)
+    if first == '+'
+      line = "<span class='plus'>#{line}</span>"
+    else if first == '-'
+      line = "<span class='minus'>#{line}</span>"
+    else
+      line ="<span>#{line}</span>"
+    
+    lines.push(line)
+  lines.join('\n')
