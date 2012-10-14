@@ -4,29 +4,35 @@
 
 {{#if commit}}
 
-  {{{markdown commit/message}}}
-
-  {{#if committer}}
-    {{#with committer}}
-      <img height=20 width=20 src='{{avatar_url}}' /> <strong>{{login}}</strong> committed
-    {{/with}}
-  {{/if}}
+  <div class="head">
+  
+    {{#if committer}}
+      {{#with committer}}
+        <img src='{{avatar_url}}' class="avatar" />
+        <p>
+          <strong>{{login}}</strong> committed <a class='sha'>{{../sha}}</a>
+          <small>&#8220;{{../commit/message}}&#8221;</small>
+	      </p>
+      {{/with}}
+    {{/if}}
+        
+    {{#if stats}}
+      {{#with stats}}
+        <em>{{additions}} additions, {{deletions}} deletions</em>
+      {{/with}}
+    {{/if}}
+    
+  </div>
 
   {{#if files}}
     <div class="diff">
     {{#each files}}
-      {{filename}}:<br />
+      <strong>{{filename}}</strong>
       {{#if patch }}
         <commit>{{{rawPatch patch}}}</commit>
       {{/if}}
     {{/each}}
     </div>
-  {{/if}}
-
-  {{#if stats}}
-    {{#with stats}}
-      {{additions}} additions, {{deletions}} deletions.
-    {{/with}}
   {{/if}}
   
   {{#if comments}}}

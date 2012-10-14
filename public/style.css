@@ -243,7 +243,7 @@ img.avatar {
   font-size: 13px;
 }
 
-#events a.sha {
+#events a.sha, a.sha {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
   background-image: -webkit-gradient(linear, left bottom, left top, from(#008ae0), to(#49aae9));
   background-image: -moz-linear-gradient(90deg, #008ae0 0%, #49aae9 100%);
@@ -308,20 +308,75 @@ img.avatar {
   min-height: 100%;
   top: 0;
   right: 0;
-  bottom: 0;
   left: 0;
+  padding-top: 43px;
+}
+
+.detail-view .head {
+  position: relative;
+  margin: 24px 30px 18px;
+  border-bottom: 1px solid #d8dfe4;
+  padding-bottom: 8px;
+  padding-left: 44px;
+  line-height: 20px;
+}
+
+.detail-view .head img {
+  left: 0;
+  top: 4px;
+}
+
+.detail-view .head p {
+  position: relative;
+  padding-right: 170px;
+}
+
+.detail-view .head p small {
+  display: block;
+  color: #68747a;
+  font-size: 13px;
+}
+
+.detail-view .head em {
+  color: #68747a;
+  font-size: 13px;
+  position: absolute;
+  bottom: 8px;
+  right: 0;
+}
+
+.diff {
+  margin-left: 30px;
+  margin-right: 30px;
+  background-color: #fff;
+  border: 1px solid #d8dfe4;
+  border-radius: 6px;
+  margin-bottom: 24px;
+}
+
+.diff strong {
+  font-size: 13px;
+  background-size: 12px 16px;
+  background: url(/images/icon-file@2x.png) no-repeat left center;
+  padding-left: 16px;
+  display: block;
+  margin-top: 14px;
+  margin-bottom: 14px;
+  margin-left: 14px;
 }
 
 commit {
   white-space: pre;
   font-family: monospace;
+  display: block;
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #d7dee4;
 }
 
-commit span {
-  padding: 2px;
-  margin: none;
-  float: left;
-  clear: both;
+commit:last-child {
+  border: none;
 }
 
 commit .plus {
