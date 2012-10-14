@@ -1,3 +1,12 @@
-<form action=/auth method=get>
-  <button type=submit>Log in with GitHub</button>
+<!DOCTYPE html>
+<title>GitHub Repos</title>
+
+<%= javascript_includes %>
+<script src='/templates.js'></script>
+<link href='/style.css' rel='stylesheet' type='text/css'>
+
+<form action=/auth method=get class="login">
+  <fieldset>
+    <button type=submit>Log in with GitHub</button>
+  </fieldset>
 </form>

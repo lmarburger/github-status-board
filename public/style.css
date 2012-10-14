@@ -247,6 +247,49 @@ commit .minus {
   background: rgba(255, 0, 0, 0.4);
 }
 
+form.login {
+  background: url(/images/pattern@2x.png) repeat center top;
+  width: 100%;
+  height: 100%;
+}
+
+form.login fieldset {
+  background-color: #fff;
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#f2f3f2), to(#fff));
+  background-image: -moz-linear-gradient(90deg, #f2f3f2 0%, #fff 100%);
+  -moz-box-shadow: inset 0 0 4px #ffffff, 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: inset 0 0 4px #ffffff, 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 0 4px #ffffff, 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.25);
+  border-style: none;
+  border-radius: 6px;
+  width: 300px;
+  text-align: center;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 200px;
+  margin-top: -200px;
+  margin-left: -150px;
+}
+
+form.login fieldset button {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#0071e8), color-stop(0.489, #0685ea), color-stop(0.5, #098eec), to(#6cbaf3));
+  background-image: -moz-linear-gradient(90deg, #0071e8 0%, #0685ea 48.9%, #098eec 50%, #6cbaf3 100%);
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+  border-style: none;
+  font: bold 15px/30px "Helvetica Neue", Helvetica, sans-serif;
+  -moz-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 2px 0 rgba(255, 255, 255, 0.15);
+  -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 2px 0 rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 2px 0 rgba(255, 255, 255, 0.15);
+  border-radius: 30px;
+  padding: 2px 24px 4px;
+  cursor: pointer;
+}
+
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
   
   /* Styles for mobile */
