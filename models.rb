@@ -2,6 +2,7 @@ require 'forwardable'
 require 'oauth2'
 require 'faraday_middleware'
 require 'octokit'
+require 'active_support/cache'
 
 # handles OAuth process
 AuthProcess = Struct.new :settings do
@@ -123,6 +124,10 @@ StatusBoard = Struct.new :auth_token do
     options = options.merge oauth_token: auth_token,
       # proxy: 'http://localhost:8888',
       faraday_config_block: lambda { |conn|
+        conn.response :caching do
+          # <3 Elliott
+          ActiveSupport::Cache::FileStore.new "#{cache_prefix}dumb", expires_in: 60 * 30
+        end
         conn.use FaradayMiddleware::RackCompatible, Rack::Cache::Context,
           :metastore      => "file:#{cache_prefix}meta",
           :entitystore    => "file:#{cache_prefix}body",
