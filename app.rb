@@ -1,7 +1,6 @@
 # encoding: utf-8
 require 'sinatra'
 require 'sinatra/config_file'
-require 'sinatra/cookies'
 require 'sinatra/namespace'
 
 require 'json'
@@ -15,6 +14,7 @@ enable :show_exceptions
 
 set(:js_assets)    { Dir['{public,views}/**/*.{js,coffee}'].sort }
 set(:cache_folder) { "#{settings.root}/tmp/cache" }
+set :sessions,     { expire_after: 60 * 60 * 24 * 7 }
 
 use Rack::Static, :urls => %w[/favicon.ico /apple-touch-icon], :root => 'public'
 
@@ -69,15 +69,15 @@ helpers do
   end
 
   def status_board
-    StatusBoard.new cookies[:token]
+    StatusBoard.new session[:token]
   end
 end
 
 get "/" do
-  if cookies[:token]
+  if session[:token]
     erb :index
   else
-    erb :login
+    erb :login, layout: false
   end
 end
 
@@ -86,7 +86,7 @@ get '/auth' do
 end
 
 get '/callback' do
-  cookies[:token] = auth_process.get_token params[:code]
+  session[:token] = auth_process.get_token params[:code]
   redirect '/'
 end
 
