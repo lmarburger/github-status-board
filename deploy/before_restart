@@ -40,3 +40,4 @@ run "git clean -d -f -- vendor/plugins"
 
 # kill assets cache
 run "rm -rf tmp/cache/body tmp/cache/meta"
+run "mkdir -p tmp/cache/body tmp/cache/meta"
