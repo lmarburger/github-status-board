@@ -19,13 +19,12 @@ class GB.ListView extends Backbone.View
     'mousedown li a': 'didClickRepo'
     
   didClickRepo: (e) ->
-    e.stopPropagation()
-    e.preventDefault()
     
     element = $(e.target).closest('li')
     slug = element.data('repo-slug')
     repo = @collection.where(slug: slug)[0]
-    
+
+    console.log 'toggleSelected'
     repo.toggleSelected()
     
     if repo.get('selected')
@@ -33,7 +32,12 @@ class GB.ListView extends Backbone.View
     else
       @selectedRepoSlugs.remove(repo.get('slug'))
     
-    @trigger('change:selection', @repos())
+    _.defer () =>
+      @trigger('change:selection', @repos())
+    
+    e.stopPropagation()
+    e.preventDefault()
+    
     
   repos: () ->
     _.filter @collection.models, (repo) => 
