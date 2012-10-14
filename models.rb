@@ -63,7 +63,7 @@ StatusBoard = Struct.new :auth_token do
 
 
   # [{ slug: 'railsrumble/r12-team-184', events: [{...}] },
-  #  { namslug: 'troy/txlogic', events: [{...}] }]
+  #  { slug: 'troy/txlogic', events: [{...}] }]
   def events_by_repo
     events = events_for_authenticated_user.
       each_with_object(Hash.new([])) {|event, grouped|
