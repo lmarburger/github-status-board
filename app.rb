@@ -69,6 +69,20 @@ helpers do
   def status_board
     StatusBoard.new session[:token]
   end
+
+  JS_ESCAPE_MAP = {
+    '\\'    => '\\\\',
+    '</'    => '<\/',
+    "\r\n"  => '\n',
+    "\n"    => '\n',
+    "\r"    => '\n',
+    '"'     => '\\"',
+    "'"     => "\\'"
+  }
+
+  def escape_javascript string
+    string.gsub(/(\\|<\/|\r\n|\342\200\250|[\n\r"'])/u) {|match| JS_ESCAPE_MAP[match] }
+  end
 end
 
 get "/" do
@@ -86,6 +100,17 @@ end
 get '/callback' do
   session[:token] = auth_process.get_token params[:code]
   redirect '/'
+end
+
+get '/templates.js' do
+  content_type 'application/javascript'
+  Dir['views/**/*.handlebars.html'].map do |file|
+    name = File.basename file, '.handlebars.html'
+    name.sub!(/^[a-z]/) { $&.upcase }
+    name << 'Template' unless name.end_with? 'Template'
+    source = File.read file
+    "GB.#{name} = '#{escape_javascript source}'"
+  end.join("\n\n")
 end
 
 # API

@@ -2,11 +2,13 @@ class GB.EventItemView extends Backbone.View
   
   template: ->
     
-    if @model.get('type') && eval("GB.#{@model.get('type')}Template")
-      template = Handlebars.compile(eval("GB.#{@model.get('type')}Template"))
+    type = @model.get('type')
+    source = GB["#{type}Template"]
+    if source
+      template = Handlebars.compile(source)
       template(@model.attributes)
     else
-      "<span>#{@model.get('type')}"
+      "<span>#{type}"
   
   render: ->
     @$el.html @template()
