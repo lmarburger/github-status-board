@@ -1,8 +1,6 @@
 GB.CommitDetailViewTemplate = "
-  I'm details of commit {{sha}}.
+  Commit {{sha}}.
   
-  <br />
-  <br />
   <br />
   
   {{#if commit}}
@@ -16,8 +14,6 @@ GB.CommitDetailViewTemplate = "
     <strong>{{message}}</strong>
   
     <br />
-    <br />
-    <br />
   
     {{#if files}}
       {{#each files}}
@@ -25,8 +21,7 @@ GB.CommitDetailViewTemplate = "
         <commit>{{{rawPatch patch}}}</commit>
       {{/each}}
     {{/if}}
-    <br />
-    <br />
+
     <br />
   
     {{#if stats}}

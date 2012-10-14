@@ -22,6 +22,7 @@ class GB.StatusBoardApp extends Backbone.View
   
   events: 
     'click .sha': 'showCommit'
+    'click #back': 'hideDetails'
   
   renderMainView: () ->
     @feedView.model = @listView.repos()
@@ -42,14 +43,21 @@ class GB.StatusBoardApp extends Backbone.View
     repoSlug = element.data('repo-slug')
     repo = App.repos.where('slug': element.data('repo-slug'))[0]
 
-    repo.events.each (event) =>
-      _.each event.get('payload').commits, (commit) =>
-        if commit.sha == sha
-          commit = new GB.Commit(commit)
-          commit.set('repo', repo)
-          commitView = new GB.CommitDetailView(model: commit)
-          @detailContainer.html commitView.render().$el
+    commit = new GB.Commit({sha: sha})
+    commit.set('repo', repo)
+    commitView = new GB.CommitDetailView(model: commit)
+    @detailContainer.html commitView.render().$el
     
+    @showDetails()
+    
+  showDetails: () ->
+    @feedContainer.hide()
+    @detailContainer.show()
+    
+  hideDetails: () ->
+    @feedContainer.show()
+    @detailContainer.hide()
+
   showRepos: () ->
     ids = @listView.selectedCommitIds()
     
