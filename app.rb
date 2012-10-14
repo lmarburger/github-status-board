@@ -124,17 +124,9 @@ namespace '/api/repos' do
     'Unauthorized'
   end
 
-  error Octokit::Forbidden do
-    status 403
-    'Forbidden'
-  end
-
-  error Octokit::NotFound do
-    status 404
-    'Not Found'
-  end
-
   error [ Octokit::BadRequest,
+          Octokit::Forbidden,
+          Octokit::NotFound,
           Octokit::NotAcceptable,
           Octokit::UnprocessableEntity,
           Octokit::InternalServerError,
@@ -142,7 +134,7 @@ namespace '/api/repos' do
           Octokit::BadGateway,
           Octokit::ServiceUnavailable ] do
    status 500
-   'Error'
+   'OctoError'
   end
 
   get do
