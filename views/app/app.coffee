@@ -20,6 +20,9 @@ class GB.StatusBoardApp extends Backbone.View
     @listView.on('change:selection', @renderMainView, @)
     @repos.on('reset change', @renderListView, @)
   
+  events: 
+    'click .sha': 'showCommit'
+  
   renderMainView: () ->
     @feedView.model = @listView.repos()
     @feedView.render()
@@ -32,9 +35,19 @@ class GB.StatusBoardApp extends Backbone.View
       @listView.selectAll()
     callback?()
     
-  showCommit: (repo, commit) ->
-    commitView = new GB.CommitDetailView(model: commit)
-    @detailContainer.html commitView.render().$el
+  showCommit: (e) ->
+    
+    element = $(e.target).closest('a.sha')
+    sha = element.data('sha')
+    repoSlug = element.data('repo-slug')
+    repo = App.repos.where('slug': element.data('repo-slug'))[0]
+
+    repo.events.each (event) =>
+      _.each event.get('payload').commits, (commit) =>
+        if commit.sha == sha
+          commit = new GB.Commit(commit)
+          commitView = new GB.CommitDetailView(model: commit)
+          @detailContainer.html commitView.render().$el
     
   showRepos: () ->
     ids = @listView.selectedCommitIds()
