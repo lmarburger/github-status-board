@@ -22,7 +22,7 @@ class GB.Repo extends Backbone.Model
       @events.fetch()
     
   eventsUpdated: () ->
-    @set('public', @events.first().get('public'))
+    @set('public', @events.first()?.get('public'))
     @trigger('change')
   
   toggleSelected: () ->
