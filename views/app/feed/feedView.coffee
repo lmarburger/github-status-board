@@ -14,7 +14,7 @@ class GB.FeedView extends Backbone.View
     GB.FeedView.__super__.initialize.apply(this, arguments)
   
   fetchMore: () ->
-    @$('.more').hide()
+    @$('.more').css('opacity', 0.4)
     App.repos.fetchEventsIfSelected()
     
   render: ->
