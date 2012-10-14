@@ -9,9 +9,8 @@ class GB.Repo extends Backbone.Model
       null
   
   initialize: () ->
-    @events = new GB.EventsCollection()
+    @events = new GB.EventsCollection(this.get('events'))
     @events.repo = @
-    @events.fetch()
     @events.on('change reset', @eventsUpdated, @)
     
   eventsUpdated: () ->
