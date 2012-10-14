@@ -102,8 +102,8 @@ StatusBoard = Struct.new :auth_token do
   end
 
   SUPPORTED_EVENTS = %w[
-    CreateEvent DeleteEvent PushEvent IssuesEvent PullRequestEvent
-    CommitCommentEvent IssueCommentEvent PullRequestReviewCommentEvent
+    PushEvent IssuesEvent PullRequestEvent CommitCommentEvent IssueCommentEvent
+    PullRequestReviewCommentEvent
   ]
 
   def filter_events events
