@@ -25,5 +25,6 @@ gem 'faraday_middleware'
 
 group :production do
   gem 'airbrake'
+  gem 'thin'
   gem 'therubyracer'
 end
