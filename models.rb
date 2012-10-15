@@ -2,7 +2,6 @@ require 'forwardable'
 require 'oauth2'
 require 'faraday_middleware'
 require 'octokit'
-# require 'active_support/cache'
 require 'time'
 
 # handles OAuth process
