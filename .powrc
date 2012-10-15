@@ -1,0 +1,4 @@
+export GITHUB_APP_CLIENT_ID=abc1234
+export GITHUB_APP_SECRET=sekret
+export SESSION_SECRET=longlongrandomstring
+export AIRBRAKE_API_KEY=longlongrandomstring

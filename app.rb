@@ -7,8 +7,9 @@ require 'json'
 require 'rack/cache'
 
 require_relative 'models'
+require_relative 'monkey'
 
-config_file 'config.yml'
+config_file 'config.yml.erb'
 
 set(:js_assets)    { Dir['{public,views}/**/*.{js,coffee}'].sort }
 set(:cache_folder) { "#{settings.root}/tmp/cache" }
